@@ -50,6 +50,6 @@ public class DatabasePool {
         PreparedStatement pst = con.prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
         rs.next();
-        System.out.println(rs.getString(1) + "123 " + rs.getString(2));
+        System.out.println(rs.getString(1) + " " + rs.getString(2));
     }
 }
