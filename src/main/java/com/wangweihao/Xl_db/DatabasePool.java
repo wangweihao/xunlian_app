@@ -1,7 +1,8 @@
+package com.wangweihao.Xl_db;
+
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import java.sql.*;
-import java.util.ResourceBundle;
 
 /**
  * Created by wwh on 15-10-18.
@@ -44,6 +45,7 @@ public class DatabasePool {
         }
     }
 
+    /* 单元测试 */
     public static void main(String[] aegs) throws SQLException {
         Connection con = getConnection();
         String sql = "select account,password from UserInfo where account = 13659218813";

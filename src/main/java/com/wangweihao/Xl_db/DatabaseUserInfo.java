@@ -1,3 +1,5 @@
+package com.wangweihao.Xl_db;
+
 /**
  * Created by wwh on 15-10-18.
  */
