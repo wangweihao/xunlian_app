@@ -1,10 +1,11 @@
 package com.wangweihao.Xl_handler;
+import com.wangweihao.Codec.JsonMessageDecoder;
+import com.wangweihao.Codec.JsonMessageEncoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -19,8 +20,11 @@ public class XlServerHandler extends ChannelHandlerAdapter{
         System.out.println("serverHandler创建");
     }
 
-    @Override
+    /*@Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception{
+        if(msg instanceof ByteBuf){
+            System.out.println("haha");
+        }
         ByteBuf buf = (ByteBuf)msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
@@ -31,6 +35,16 @@ public class XlServerHandler extends ChannelHandlerAdapter{
         byte[] bt = s.getBytes();
         ByteBuf rett = Unpooled.copiedBuffer(bt);
         ctx.write(rett);
+    }*/
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception{
+        if(msg instanceof ByteBuf){
+            JsonMessageDecoder decoder = new JsonMessageDecoder((ByteBuf)msg);
+            //查询处理
+            JsonMessageEncoder encoder = new JsonMessageEncoder(decoder.Decoding());
+            ctx.write(encoder.send());
+        }
     }
 
     @Override
