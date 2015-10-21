@@ -5,16 +5,17 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
 /**
  * Created by wwh on 15-10-21.
  */
-public class DecectAccountRegister extends AccessDatabase{
-    public DecectAccountRegister() {
+public class UpdateOrInsertContacts extends AccessDatabase {
+    public UpdateOrInsertContacts(){
     }
-    public DecectAccountRegister(int _mark, String _account){
+
+    public UpdateOrInsertContacts(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
     }
 
     @Override
-    public String AccessXlDatabase() {
-        System.out.println("检测帐号是否存在");
+    public String AccessXlDatabase(){
+        System.out.println("更新或者加入新的联系人");
         return null;
     }
 

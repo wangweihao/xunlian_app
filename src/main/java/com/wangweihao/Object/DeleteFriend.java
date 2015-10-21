@@ -5,16 +5,16 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
 /**
  * Created by wwh on 15-10-21.
  */
-public class DecectAccountRegister extends AccessDatabase{
-    public DecectAccountRegister() {
+public class DeleteFriend extends AccessDatabase {
+    public DeleteFriend() {
     }
-    public DecectAccountRegister(int _mark, String _account){
+    public DeleteFriend(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
     }
 
     @Override
     public String AccessXlDatabase() {
-        System.out.println("检测帐号是否存在");
+        System.out.println("删除好友");
         return null;
     }
 

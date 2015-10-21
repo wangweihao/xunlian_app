@@ -5,16 +5,17 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
 /**
  * Created by wwh on 15-10-21.
  */
-public class DecectAccountRegister extends AccessDatabase{
-    public DecectAccountRegister() {
+
+public class AddFriendByQRCode extends AccessDatabase {
+    public AddFriendByQRCode() {
     }
-    public DecectAccountRegister(int _mark, String _account){
+    public AddFriendByQRCode(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
     }
 
     @Override
     public String AccessXlDatabase() {
-        System.out.println("检测帐号是否存在");
+        System.out.println("通过二维码添加好友");
         return null;
     }
 
