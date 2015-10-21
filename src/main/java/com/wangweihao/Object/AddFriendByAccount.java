@@ -7,10 +7,10 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class AddFriendByAccount extends AccessDatabase {
     public AddFriendByAccount() {
-        basicObject = new RecvBasicMessageObject();
+        super();
     }
     public AddFriendByAccount(int _mark, String _account){
-        basicObject = new RecvBasicMessageObject(_mark, _account);
+        super(_mark, _account);
     }
 
     @Override

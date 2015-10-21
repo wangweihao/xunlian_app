@@ -7,10 +7,10 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class UserLogIn extends AccessDatabase {
     public UserLogIn() {
-        basicObject = new RecvBasicMessageObject();
+        super();
     }
     public UserLogIn(int _mark, String _account){
-        basicObject = new RecvBasicMessageObject(_mark, _account);
+        super(_mark, _account);
     }
 
     @Override

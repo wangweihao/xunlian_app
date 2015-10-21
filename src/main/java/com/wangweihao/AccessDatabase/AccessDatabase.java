@@ -8,6 +8,11 @@ import com.wangweihao.Object.RecvBasicMessageObject;
 public class AccessDatabase {
     public AccessDatabase(){
         basicObject = new RecvBasicMessageObject();
+        sqlString = new String();
+    }
+    public AccessDatabase(int _mark, String _account){
+        basicObject = new RecvBasicMessageObject(_mark, _account);
+        sqlString = new String();
     }
 
     public RecvBasicMessageObject AccessXlDatabase(){
@@ -19,4 +24,5 @@ public class AccessDatabase {
     }
 
     public RecvBasicMessageObject basicObject;
+    public String sqlString;
 }

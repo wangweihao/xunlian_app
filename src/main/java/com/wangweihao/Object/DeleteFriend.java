@@ -7,10 +7,10 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class DeleteFriend extends AccessDatabase {
     public DeleteFriend() {
-        basicObject = new RecvBasicMessageObject();
+        super();
     }
     public DeleteFriend(int _mark, String _account){
-        basicObject = new RecvBasicMessageObject(_mark, _account);
+        super(_mark, _account);
     }
 
     @Override

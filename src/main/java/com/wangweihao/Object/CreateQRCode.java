@@ -7,10 +7,10 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class CreateQRCode extends AccessDatabase {
     public CreateQRCode() {
-        basicObject = new RecvBasicMessageObject();
+        super();
     }
     public CreateQRCode(int _mark, String _account){
-        basicObject = new RecvBasicMessageObject(_mark, _account);
+        super(_mark, _account);
     }
 
     @Override

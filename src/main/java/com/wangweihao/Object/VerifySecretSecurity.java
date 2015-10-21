@@ -7,11 +7,11 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class VerifySecretSecurity extends AccessDatabase{
     public VerifySecretSecurity(){
-        basicObject = new RecvBasicMessageObject();
+        super();
     }
 
     public VerifySecretSecurity(int _mark, String _account){
-        basicObject = new RecvBasicMessageObject(_mark, _account);
+        super(_mark, _account);
     }
 
     @Override

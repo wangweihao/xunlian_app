@@ -7,10 +7,10 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class ObtainNewContactsData extends AccessDatabase {
     public ObtainNewContactsData() {
-        basicObject = new RecvBasicMessageObject();
+        super();
     }
     public ObtainNewContactsData(int _mark, String _account){
-        basicObject = new RecvBasicMessageObject(_mark, _account);
+        super(_mark, _account);
     }
 
     @Override
