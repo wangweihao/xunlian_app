@@ -12,7 +12,7 @@ public class MarkToClassObjectMap {
     public MarkToClassObjectMap() {
         markToClass = new HashMap<Integer, String>() {
             {
-                put(1, "com.wangweihao.Object.DectAccountRegister");
+                put(1, "com.wangweihao.Object.DecectAccountRegister");
             }
         };
     }
