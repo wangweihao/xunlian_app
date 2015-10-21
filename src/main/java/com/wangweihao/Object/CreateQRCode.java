@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class CreateQRCode extends AccessDatabase {
     public CreateQRCode() {
+        basicObject = new RecvBasicMessageObject();
     }
     public CreateQRCode(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
@@ -15,7 +16,7 @@ public class CreateQRCode extends AccessDatabase {
     @Override
     public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("创建二维码");
-        return null;
+        return basicObject;
     }
 
 }

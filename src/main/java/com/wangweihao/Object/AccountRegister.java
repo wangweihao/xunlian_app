@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class AccountRegister extends AccessDatabase {
     public AccountRegister(){
+        basicObject = new RecvBasicMessageObject();
     }
     public AccountRegister(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);

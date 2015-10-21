@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class ModifySecret extends AccessDatabase{
     public ModifySecret(){
+        basicObject = new RecvBasicMessageObject();
     }
 
     public ModifySecret(int _mark, String _account){
@@ -16,7 +17,7 @@ public class ModifySecret extends AccessDatabase{
     @Override
     public RecvBasicMessageObject AccessXlDatabase(){
         System.out.println("修改密码");
-        return null;
+        return basicObject;
     }
 
 

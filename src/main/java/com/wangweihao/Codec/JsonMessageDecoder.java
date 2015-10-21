@@ -43,8 +43,9 @@ public class JsonMessageDecoder {
          */
         Class messageObject = Class.forName(mapObject.Mapping(decodeObject.getMark()));
         AccessDatabase accessDatabaseObject = (AccessDatabase) messageObject.newInstance();
-        accessDatabaseObject.basicObject.setMark(requestJson.getInt("mark"));
-        accessDatabaseObject.basicObject.setAccount(requestJson.getString("account"));
+        //accessDatabaseObject.basicObject.setMark(requestJson.getInt("mark"));
+        //accessDatabaseObject.basicObject.setAccount(requestJson.getString("account"));
+        accessDatabaseObject.basicObject.setValue(decodeObject);
         return accessDatabaseObject;
     }
 

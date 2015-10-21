@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class ObtainNewContactsData extends AccessDatabase {
     public ObtainNewContactsData() {
+        basicObject = new RecvBasicMessageObject();
     }
     public ObtainNewContactsData(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
@@ -15,7 +16,7 @@ public class ObtainNewContactsData extends AccessDatabase {
     @Override
     public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("获得刷新后的联系人数据");
-        return null;
+        return basicObject;
     }
 
 }

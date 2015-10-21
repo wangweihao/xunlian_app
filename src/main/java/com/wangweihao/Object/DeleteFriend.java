@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class DeleteFriend extends AccessDatabase {
     public DeleteFriend() {
+        basicObject = new RecvBasicMessageObject();
     }
     public DeleteFriend(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
@@ -15,7 +16,7 @@ public class DeleteFriend extends AccessDatabase {
     @Override
     public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("删除好友");
-        return null;
+        return basicObject;
     }
 
 }

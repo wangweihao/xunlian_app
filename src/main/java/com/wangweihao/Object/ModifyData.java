@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class ModifyData extends AccessDatabase {
     public ModifyData(){
+        basicObject = new RecvBasicMessageObject();
     }
 
     public ModifyData(int _mark, String _account){
@@ -16,7 +17,7 @@ public class ModifyData extends AccessDatabase {
     @Override
     public RecvBasicMessageObject AccessXlDatabase(){
         System.out.println("修改资料");
-        return null;
+        return basicObject;
     }
 
 

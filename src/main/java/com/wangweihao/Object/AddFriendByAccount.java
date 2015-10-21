@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class AddFriendByAccount extends AccessDatabase {
     public AddFriendByAccount() {
+        basicObject = new RecvBasicMessageObject();
     }
     public AddFriendByAccount(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);

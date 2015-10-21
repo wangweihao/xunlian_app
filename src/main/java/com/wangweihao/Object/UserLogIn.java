@@ -7,6 +7,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class UserLogIn extends AccessDatabase {
     public UserLogIn() {
+        basicObject = new RecvBasicMessageObject();
     }
     public UserLogIn(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
@@ -15,7 +16,7 @@ public class UserLogIn extends AccessDatabase {
     @Override
     public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("用户登录");
-        return null;
+        return basicObject;
     }
 
 }

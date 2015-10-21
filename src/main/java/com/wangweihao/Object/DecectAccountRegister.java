@@ -7,10 +7,9 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
  */
 public class DecectAccountRegister extends AccessDatabase{
     public DecectAccountRegister() {
-        System.out.println("asdasd");
+        basicObject = new RecvBasicMessageObject();
     }
     public DecectAccountRegister(int _mark, String _account){
-        System.out.println("_++++");
         basicObject = new RecvBasicMessageObject(_mark, _account);
     }
 

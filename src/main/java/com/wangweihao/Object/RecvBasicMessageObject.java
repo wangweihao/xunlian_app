@@ -30,4 +30,9 @@ public class RecvBasicMessageObject {
     public void setAccount(String _account){
         account = _account;
     }
+
+    public void setValue(RecvBasicMessageObject object){
+        mark = object.getMark();
+        account = object.getAccount();
+    }
 }

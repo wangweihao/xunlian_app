@@ -8,6 +8,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
 
 public class AddFriendByQRCode extends AccessDatabase {
     public AddFriendByQRCode() {
+        basicObject = new RecvBasicMessageObject();
     }
     public AddFriendByQRCode(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
@@ -16,7 +17,7 @@ public class AddFriendByQRCode extends AccessDatabase {
     @Override
     public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("通过二维码添加好友");
-        return null;
+        return basicObject;
     }
 
 }
