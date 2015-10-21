@@ -11,5 +11,6 @@ public class XlServerInitializer extends ChannelInitializer<SocketChannel>{
     @Override
     public void initChannel(SocketChannel socketChannel) throws Exception{
         ChannelPipeline pipeline = socketChannel.pipeline();
+        pipeline.addLast(new XlServerHandler());
     }
 }
