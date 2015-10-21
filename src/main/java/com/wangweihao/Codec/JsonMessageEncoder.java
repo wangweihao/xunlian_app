@@ -12,19 +12,14 @@ import io.netty.buffer.Unpooled;
 public class JsonMessageEncoder {
     public JsonMessageEncoder(RecvBasicMessageObject object){
         //将ServerRecvMessageObject组装成ByteBuf
-        tryString = "hello world hahahah";
-    }
-
-    public ByteBuf getByteBuf(){
-        return message;
+        responseString = "name:" + object.getAccount();
     }
 
     public ByteBuf send(){
-        byte[] b = tryString.getBytes();
+        byte[] b = responseString.getBytes();
         ByteBuf ret = Unpooled.copiedBuffer(b);
         return ret;
     }
 
-    private ByteBuf message;
-    private String tryString;
+    private String responseString;
 }

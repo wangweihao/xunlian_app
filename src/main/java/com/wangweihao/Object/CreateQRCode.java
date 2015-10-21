@@ -18,5 +18,4 @@ public class CreateQRCode extends AccessDatabase {
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
 }

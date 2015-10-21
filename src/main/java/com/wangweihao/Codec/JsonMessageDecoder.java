@@ -38,15 +38,13 @@ public class JsonMessageDecoder {
         /*
          * 使用反射
          * 通过map将mark转换为类名
-         * 动态加载类
-         */
-        Class messageObject = Class.forName(mapObject.Mapping(decodeObject.getMark()));
-        /*
          * 通过反射将对象实例化为AccessDatabase对象
          * 注意反射时访问权限问题
-         * */
+         */
+        Class messageObject = Class.forName(mapObject.Mapping(decodeObject.getMark()));
         AccessDatabase accessDatabaseObject = (AccessDatabase) messageObject.newInstance();
-
+        accessDatabaseObject.basicObject.setMark(requestJson.getInt("mark"));
+        accessDatabaseObject.basicObject.setAccount(requestJson.getString("account"));
         return accessDatabaseObject;
     }
 

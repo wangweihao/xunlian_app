@@ -19,5 +19,5 @@ public class ModifySecret extends AccessDatabase{
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
+
 }

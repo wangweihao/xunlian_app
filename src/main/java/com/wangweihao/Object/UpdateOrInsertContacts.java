@@ -19,5 +19,4 @@ public class UpdateOrInsertContacts extends AccessDatabase {
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
 }

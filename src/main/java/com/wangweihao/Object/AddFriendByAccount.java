@@ -15,9 +15,9 @@ public class AddFriendByAccount extends AccessDatabase {
     @Override
     public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("通过帐号添加好友");
-        return null;
+        return basicObject;
     }
 
-    private RecvBasicMessageObject basicObject;
+
 }
 

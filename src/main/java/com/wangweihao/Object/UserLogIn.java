@@ -18,5 +18,4 @@ public class UserLogIn extends AccessDatabase {
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
 }

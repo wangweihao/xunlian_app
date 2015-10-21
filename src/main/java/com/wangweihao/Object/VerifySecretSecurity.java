@@ -19,5 +19,4 @@ public class VerifySecretSecurity extends AccessDatabase{
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
 }

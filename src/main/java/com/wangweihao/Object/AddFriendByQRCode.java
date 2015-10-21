@@ -19,5 +19,4 @@ public class AddFriendByQRCode extends AccessDatabase {
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
 }

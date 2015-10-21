@@ -18,5 +18,4 @@ public class ObtainAllContactsData extends AccessDatabase {
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
 }

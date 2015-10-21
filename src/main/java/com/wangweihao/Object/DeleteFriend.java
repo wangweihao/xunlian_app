@@ -18,5 +18,4 @@ public class DeleteFriend extends AccessDatabase {
         return null;
     }
 
-    private RecvBasicMessageObject basicObject;
 }

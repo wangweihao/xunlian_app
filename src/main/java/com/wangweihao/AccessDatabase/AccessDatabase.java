@@ -7,9 +7,16 @@ import com.wangweihao.Object.RecvBasicMessageObject;
  */
 public class AccessDatabase {
     public AccessDatabase(){
-
+        basicObject = new RecvBasicMessageObject();
     }
+
     public RecvBasicMessageObject AccessXlDatabase(){
         return null;
     }
+
+    public void ConstructObject(){
+
+    }
+
+    public RecvBasicMessageObject basicObject;
 }

@@ -8,6 +8,8 @@ package com.wangweihao.Object;
 public class RecvBasicMessageObject {
     int mark;
     String account;
+    public RecvBasicMessageObject(){}
+
     public RecvBasicMessageObject(int _mark, String _account){
         mark = _mark;
         account = _account;
