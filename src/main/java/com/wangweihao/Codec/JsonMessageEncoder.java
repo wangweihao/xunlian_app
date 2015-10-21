@@ -1,6 +1,6 @@
 package com.wangweihao.Codec;
 
-import com.wangweihao.Object.ServerRecvMessageObject;
+import com.wangweihao.Object.RecvBasicMessageObject;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -10,7 +10,7 @@ import io.netty.buffer.Unpooled;
 
 /*基于json的编码器，将结果组装成json对象并返回给客户端*/
 public class JsonMessageEncoder {
-    public JsonMessageEncoder(ServerRecvMessageObject object){
+    public JsonMessageEncoder(RecvBasicMessageObject object){
         //将ServerRecvMessageObject组装成ByteBuf
         tryString = "hello world hahahah";
     }

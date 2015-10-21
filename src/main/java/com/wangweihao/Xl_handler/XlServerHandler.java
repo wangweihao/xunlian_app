@@ -20,23 +20,6 @@ public class XlServerHandler extends ChannelHandlerAdapter{
         System.out.println("serverHandler创建");
     }
 
-    /*@Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception{
-        if(msg instanceof ByteBuf){
-            System.out.println("haha");
-        }
-        ByteBuf buf = (ByteBuf)msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String body = new String(req, "UTF-8");
-        System.out.println("服务端收到:" + body);
-        String s = "hello world\n";
-        ByteBuf resp = Unpooled.copiedBuffer(req);
-        byte[] bt = s.getBytes();
-        ByteBuf rett = Unpooled.copiedBuffer(bt);
-        ctx.write(rett);
-    }*/
-
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception{
         if(msg instanceof ByteBuf){
