@@ -8,7 +8,7 @@ public class aaa {
         return;
     }
 
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public static void main(String[] args) throws Exception {
         Class c = Class.forName("tryCode.ccc");
         aaa b = (aaa) c.newInstance();
         b.func();

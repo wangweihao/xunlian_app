@@ -13,7 +13,7 @@ public class DecectAccountRegister extends AccessDatabase{
     }
 
     @Override
-    public String AccessXlDatabase() {
+    public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("检测帐号是否存在");
         return null;
     }

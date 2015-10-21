@@ -13,7 +13,7 @@ public class AddFriendByAccount extends AccessDatabase {
     }
 
     @Override
-    public String AccessXlDatabase() {
+    public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("通过帐号添加好友");
         return null;
     }

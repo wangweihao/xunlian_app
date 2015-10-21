@@ -5,6 +5,6 @@ package tryCode;
  */
 public class bbb extends aaa {
     public void func(){
-        System.out.println("hahahaha");
+        System.out.println("bbb");
     }
 }

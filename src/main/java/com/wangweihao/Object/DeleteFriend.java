@@ -13,7 +13,7 @@ public class DeleteFriend extends AccessDatabase {
     }
 
     @Override
-    public String AccessXlDatabase() {
+    public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("删除好友");
         return null;
     }

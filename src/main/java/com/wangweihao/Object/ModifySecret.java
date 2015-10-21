@@ -14,7 +14,7 @@ public class ModifySecret extends AccessDatabase{
     }
 
     @Override
-    public String AccessXlDatabase(){
+    public RecvBasicMessageObject AccessXlDatabase(){
         System.out.println("修改密码");
         return null;
     }

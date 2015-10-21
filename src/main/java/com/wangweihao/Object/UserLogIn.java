@@ -13,7 +13,7 @@ public class UserLogIn extends AccessDatabase {
     }
 
     @Override
-    public String AccessXlDatabase() {
+    public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("用户登录");
         return null;
     }

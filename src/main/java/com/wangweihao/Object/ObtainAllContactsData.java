@@ -13,7 +13,7 @@ public class ObtainAllContactsData extends AccessDatabase {
     }
 
     @Override
-    public String AccessXlDatabase() {
+    public RecvBasicMessageObject AccessXlDatabase() {
         System.out.println("获得所有的联系人数据");
         return null;
     }

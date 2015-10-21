@@ -5,16 +5,16 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
 /**
  * Created by wwh on 15-10-21.
  */
-public class VerifySecertSecurity extends AccessDatabase{
-    public VerifySecertSecurity(){
+public class VerifySecretSecurity extends AccessDatabase{
+    public VerifySecretSecurity(){
     }
 
-    public VerifySecertSecurity(int _mark, String _account){
+    public VerifySecretSecurity(int _mark, String _account){
         basicObject = new RecvBasicMessageObject(_mark, _account);
     }
 
     @Override
-    public String AccessXlDatabase(){
+    public RecvBasicMessageObject AccessXlDatabase(){
         System.out.println("验证密宝");
         return null;
     }

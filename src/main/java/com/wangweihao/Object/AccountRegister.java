@@ -12,7 +12,7 @@ public class AccountRegister extends AccessDatabase {
     }
 
     @Override
-    public String AccessXlDatabase(){
+    public RecvBasicMessageObject AccessXlDatabase(){
         System.out.println("帐号注册");
         return null;
     }

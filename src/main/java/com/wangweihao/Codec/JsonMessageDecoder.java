@@ -21,17 +21,17 @@ public class JsonMessageDecoder {
         mapObject = new MarkToClassObjectMap();
     }
 
-    public RecvBasicMessageObject Decoding() throws Exception {
+    public AccessDatabase Decoding() throws Exception {
         //解码，并组装成对应的对象
         byte[] requestByte = new byte[recvBuffer.readableBytes()];
         recvBuffer.readBytes(requestByte);
         String requestString = new String(requestByte, "UTF-8");
         System.out.println("body:" + requestString);
-        GetMarkAndAccount(requestString);
-        return null;
+        requestStr = requestString;
+        return GetMarkAndAccount();
     }
 
-    public void GetMarkAndAccount(String requestStr) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public AccessDatabase GetMarkAndAccount() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         JSONObject requestJson = new JSONObject(requestStr);
         decodeObject = new RecvBasicMessageObject(requestJson.getInt("mark"),
                 requestJson.getString("account"));
@@ -42,15 +42,16 @@ public class JsonMessageDecoder {
          */
         Class messageObject = Class.forName(mapObject.Mapping(decodeObject.getMark()));
         /*
-         * 通过反射将对象实例化为AccessDatabase对象，准备查询数据库
+         * 通过反射将对象实例化为AccessDatabase对象
          * 注意反射时访问权限问题
          * */
         AccessDatabase accessDatabaseObject = (AccessDatabase) messageObject.newInstance();
-        accessDatabaseObject.AccessXlDatabase();
-        System.out.println(decodeObject.getMark() + " haha " + decodeObject.getAccount());
+
+        return accessDatabaseObject;
     }
 
     private ByteBuf recvBuffer;
     private RecvBasicMessageObject decodeObject;
     private MarkToClassObjectMap mapObject;
+    private String requestStr;
 }
