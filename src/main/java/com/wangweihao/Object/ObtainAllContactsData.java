@@ -14,9 +14,9 @@ public class ObtainAllContactsData extends AccessDatabase {
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase() {
+    public AccessDatabase AccessXlDatabase() {
         System.out.println("获得所有的联系人数据");
-        return basicObject;
+        return this;
     }
 
 }

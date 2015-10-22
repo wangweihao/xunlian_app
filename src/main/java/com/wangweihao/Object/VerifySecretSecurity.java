@@ -15,9 +15,9 @@ public class VerifySecretSecurity extends AccessDatabase{
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase(){
+    public AccessDatabase AccessXlDatabase(){
         System.out.println("验证密宝");
-        return basicObject;
+        return this;
     }
 
 }

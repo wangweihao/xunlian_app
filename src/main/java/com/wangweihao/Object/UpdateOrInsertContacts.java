@@ -15,9 +15,9 @@ public class UpdateOrInsertContacts extends AccessDatabase {
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase(){
+    public AccessDatabase AccessXlDatabase(){
         System.out.println("更新或者加入新的联系人");
-        return basicObject;
+        return this;
     }
 
 }

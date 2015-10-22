@@ -1,5 +1,6 @@
 package com.wangweihao.AccessDatabase;
 
+import com.wangweihao.HelpClass.ObtainData;
 import com.wangweihao.Object.RecvBasicMessageObject;
 import com.wangweihao.Xl_db.DatabasePool;
 
@@ -21,16 +22,25 @@ public class AccessDatabase {
         sqlString = new String();
     }
 
-    public RecvBasicMessageObject AccessXlDatabase() throws SQLException {
+    public AccessDatabase AccessXlDatabase() throws SQLException {
         return null;
     }
 
-    public void ConstructObject(){
+    public RecvBasicMessageObject getRecvBasicMessageObject(){
+        return basicObject;
+    }
 
+    public String ConstructSelfInfo(int SuccessOrFailure){
+        return new String("哈哈哈哈");
+    }
+
+    public String getResponseString(){
+        return ResponseString;
     }
 
     public RecvBasicMessageObject basicObject;
     public String sqlString;
     public Connection DBPoolConnection;
     public PreparedStatement preparedStatement;
+    public String ResponseString;
 }

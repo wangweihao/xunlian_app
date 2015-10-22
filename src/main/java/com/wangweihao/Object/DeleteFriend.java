@@ -14,9 +14,9 @@ public class DeleteFriend extends AccessDatabase {
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase() {
+    public AccessDatabase AccessXlDatabase() {
         System.out.println("删除好友");
-        return basicObject;
+        return this;
     }
 
 }

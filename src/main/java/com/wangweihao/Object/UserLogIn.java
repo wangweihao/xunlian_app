@@ -14,9 +14,9 @@ public class UserLogIn extends AccessDatabase {
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase() {
+    public AccessDatabase AccessXlDatabase() {
         System.out.println("用户登录");
-        return basicObject;
+        return this;
     }
 
 }

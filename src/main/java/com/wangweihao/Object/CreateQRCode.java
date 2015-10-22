@@ -14,9 +14,9 @@ public class CreateQRCode extends AccessDatabase {
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase() {
+    public AccessDatabase AccessXlDatabase() {
         System.out.println("创建二维码");
-        return basicObject;
+        return this;
     }
 
 }

@@ -15,9 +15,9 @@ public class ModifyData extends AccessDatabase {
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase(){
+    public AccessDatabase AccessXlDatabase(){
         System.out.println("修改资料");
-        return basicObject;
+        return this;
     }
 
 

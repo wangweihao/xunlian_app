@@ -15,9 +15,9 @@ public class AddFriendByQRCode extends AccessDatabase {
     }
 
     @Override
-    public RecvBasicMessageObject AccessXlDatabase() {
+    public AccessDatabase AccessXlDatabase() {
         System.out.println("通过二维码添加好友");
-        return basicObject;
+        return this;
     }
 
 }
