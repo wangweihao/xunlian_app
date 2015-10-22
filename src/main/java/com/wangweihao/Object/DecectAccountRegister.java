@@ -1,6 +1,7 @@
 package com.wangweihao.Object;
 
 import com.wangweihao.AccessDatabase.AccessDatabase;
+import com.wangweihao.HelpClass.ObtainData;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,9 +31,9 @@ public class DecectAccountRegister extends AccessDatabase{
     }
 
     @Override
-    public String ConstructSelfInfo(int SuccessOrFailure){
+    public void ConstructSelfInfo(int SuccessOrFailure){
         if(SuccessOrFailure == 1){
-            ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"2015-08\", " +
+            ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
                     "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
                     "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"该帐号已存在\"}}";
         }else{
@@ -40,6 +41,5 @@ public class DecectAccountRegister extends AccessDatabase{
                     "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"failure\"," +
                     "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"该帐号不存在\"}}";
         }
-        return null;
     }
 }

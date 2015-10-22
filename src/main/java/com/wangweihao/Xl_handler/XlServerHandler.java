@@ -25,8 +25,7 @@ public class XlServerHandler extends ChannelHandlerAdapter{
         if(msg instanceof ByteBuf){
             JsonMessageDecoder decoder = new JsonMessageDecoder((ByteBuf)msg);
             /* 解码后访问数据库，编码发送给对方 */
-            JsonMessageEncoder encoder = null;
-            encoder = new JsonMessageEncoder(decoder.Decoding().AccessXlDatabase());
+            JsonMessageEncoder encoder = new JsonMessageEncoder(decoder.Decoding().AccessXlDatabase());
             encoder.Encoding();
             ctx.write(encoder.send());
         }
