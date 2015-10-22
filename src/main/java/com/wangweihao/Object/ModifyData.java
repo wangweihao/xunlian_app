@@ -21,6 +21,7 @@ public class ModifyData extends AccessDatabase {
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
         System.out.println("修改资料");
+        setDerivedClassOtherMeber();
         sqlString = "update UserInfo set name = \'" + Name + "\', head = \'"
                 + Head + "\' where account = \'" + basicObject.getAccount() + "\';";
         preparedStatement = DBPoolConnection.prepareStatement(sqlString);

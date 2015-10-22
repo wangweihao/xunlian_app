@@ -21,6 +21,7 @@ public class DecectAccountRegister extends AccessDatabase{
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
         System.out.println("检测帐号是否存在");
+        setDerivedClassOtherMeber();
         sqlString = "select count(*) from UserInfo where account = \"" +
                 basicObject.getAccount() + "\";";
         preparedStatement = DBPoolConnection.prepareStatement(sqlString);
