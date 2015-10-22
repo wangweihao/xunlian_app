@@ -51,7 +51,7 @@ public class AccountRegister extends AccessDatabase {
                         "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
                         "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"注册成功\"}}";
             } else {
-                ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"2015-08\", " +
+                ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
                         "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"failure\"," +
                         "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"注册失败\"}}";
             }
