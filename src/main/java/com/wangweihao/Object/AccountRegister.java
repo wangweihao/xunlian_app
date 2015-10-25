@@ -48,7 +48,7 @@ public class AccountRegister extends AccessDatabase {
         if(ResponseString == null) {
             if (SuccessOrFailure == 1) {
                 ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
-                        "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
+                        "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"Is Success\":\"success\"," +
                         "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"注册成功\"}}";
             } else {
                 ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
