@@ -1,5 +1,7 @@
 package com.wangweihao.HelpClass;
 
+import com.wangweihao.ContactType.Contact;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +21,6 @@ public class ObtainData {
     }
 
     public static void main(String[] args){
-        System.out.println(getData());;
+        System.out.println(getData());
     }
 }
