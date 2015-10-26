@@ -5,4 +5,7 @@ package com.wangweihao.ContactType;
  */
 public class WeiboContact extends Contact{
 
+    public WeiboContact(int _contactType, String _contact) {
+        super(_contactType, _contact);
+    }
 }

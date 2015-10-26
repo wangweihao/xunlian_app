@@ -5,4 +5,7 @@ package com.wangweihao.ContactType;
  */
 public class MailContact extends Contact {
 
+    public MailContact(int _contactType, String _contact) {
+        super(_contactType, _contact);
+    }
 }
