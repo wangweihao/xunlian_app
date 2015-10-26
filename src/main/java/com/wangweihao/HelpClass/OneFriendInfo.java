@@ -30,6 +30,7 @@ public class OneFriendInfo {
 
     public HashMap<Integer, Contact> contactSet;
     public OneFriendInfo(){
+        contactSet = new HashMap<Integer, Contact>();
         contactSet.put(1, new PhoneContactPerson(1, ""));
         contactSet.put(2, new PhoneContactHome(2, ""));
         contactSet.put(4, new PhoneContactWork(4, ""));

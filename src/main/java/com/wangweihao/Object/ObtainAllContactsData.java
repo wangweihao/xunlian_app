@@ -1,5 +1,6 @@
 package com.wangweihao.Object;
 import com.wangweihao.AccessDatabase.AccessDatabase;
+import com.wangweihao.HelpClass.ObtainData;
 import com.wangweihao.HelpClass.OneFriendInfo;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,10 +17,14 @@ public class ObtainAllContactsData extends AccessDatabase {
     public ObtainAllContactsData() {
         super();
         notExist = new String("");
+        FriendId = new HashSet<Integer>();
+        myFriendInfo = new ArrayList<OneFriendInfo>();
     }
     public ObtainAllContactsData(int _mark, String _account){
         super(_mark, _account);
         notExist = new String("");
+        FriendId = new HashSet<Integer>();
+        myFriendInfo = new ArrayList<OneFriendInfo>();
     }
 
     @Override
@@ -27,6 +32,7 @@ public class ObtainAllContactsData extends AccessDatabase {
         System.out.println("获得所有的联系人数据");
         setDerivedClassOtherMeber();
         getUserFriendInfo();
+        packFriendInfo();
         return this;
     }
 
@@ -40,6 +46,7 @@ public class ObtainAllContactsData extends AccessDatabase {
     }
 
     private void getUserFriendAccountId() throws SQLException {
+
         String sqlGetUserFriendAccountId = "select friendId from UserFriend where uid = " +
                 getUserAccountId() + ";";
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserFriendAccountId);
@@ -63,7 +70,8 @@ public class ObtainAllContactsData extends AccessDatabase {
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendContact);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
-            if(myFriend.contactSet.get(resultSet.getInt(1)).getContact() != notExist){
+            System.out.println("type:" + resultSet.getInt(1) + " contact:" + resultSet.getString(2));
+            if(resultSet.getString(2) != notExist){
                 myFriend.contactSet.get(resultSet.getInt(1)).update(resultSet.getInt(1), resultSet.getString(2));
             }
         }
@@ -72,12 +80,27 @@ public class ObtainAllContactsData extends AccessDatabase {
 
     /* 组装好友信息 */
     private void packFriendInfo(){
-        ResponseString += "{\"error\":0, \"status\":\"success\", \"date\":\"2015-08\", " +
-                "\"result\":[";
+        JSONObject jsonResponse = new JSONObject();
+        JSONArray jsonResponseArray = new JSONArray();
+        jsonResponse.put("error", 0);
+        jsonResponse.put("status", "success");
+        jsonResponse.put("data", ObtainData.getData());
         for (OneFriendInfo oneFriend : myFriendInfo){
-            JSONArray a = new JSONArray();
-
+            JSONObject friendContactInfo = new JSONObject();
+            friendContactInfo.put("name", oneFriend.getName());
+            friendContactInfo.put("head", oneFriend.getHead());
+            friendContactInfo.put("personNumber", oneFriend.contactSet.get(1).getContact());
+            friendContactInfo.put("homePhoneNumber", oneFriend.contactSet.get(2).getContact());
+            friendContactInfo.put("workPhoneNumber", oneFriend.contactSet.get(4).getContact());
+            friendContactInfo.put("personEmail", oneFriend.contactSet.get(8).getContact());
+            friendContactInfo.put("homeEmail", oneFriend.contactSet.get(16).getContact());
+            friendContactInfo.put("workEmail", oneFriend.contactSet.get(32).getContact());
+            friendContactInfo.put("qqNumber", oneFriend.contactSet.get(64).getContact());
+            friendContactInfo.put("weiboNumber", oneFriend.contactSet.get(128).getContact());
+            jsonResponseArray.put(friendContactInfo);
         }
+        jsonResponse.put("result", jsonResponseArray);
+        ResponseString = jsonResponse.toString();
     }
 
     /* 得到所有好友的信息并组床成响应 */
