@@ -96,6 +96,7 @@ public class AddFriendByQRCode extends AccessDatabase {
             errObj.put("error", 1);
             errObj.put("status", "failure");
             errObj.put("account", basicObject.getAccount());
+            errObj.put("data", ObtainData.getData());
             errObj.put("resultInfo", "对方以是您的好友");
             ResponseString = errObj.toString();
         }
