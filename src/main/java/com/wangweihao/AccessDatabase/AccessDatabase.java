@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 /**
  * Created by wwh on 15-10-21.
@@ -26,7 +27,7 @@ public class AccessDatabase {
         RequestString = new String();
     }
 
-    public AccessDatabase AccessXlDatabase() throws SQLException {
+    public AccessDatabase AccessXlDatabase() throws SQLException, ParseException {
         return null;
     }
 

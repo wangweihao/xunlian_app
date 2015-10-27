@@ -17,6 +17,11 @@ public class ResultObject {
     int error;
     private String status;
 
+    public void setError(){
+        error = 1;
+        status = new String("failure");
+    }
+
     public String getName() {
         return name;
     }
