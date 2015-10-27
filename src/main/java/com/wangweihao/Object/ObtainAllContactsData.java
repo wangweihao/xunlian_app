@@ -12,6 +12,7 @@ import java.util.HashSet;
 
 /**
  * Created by wwh on 15-10-21.
+ * 数据备份功能
  */
 public class ObtainAllContactsData extends AccessDatabase {
     public ObtainAllContactsData() {
