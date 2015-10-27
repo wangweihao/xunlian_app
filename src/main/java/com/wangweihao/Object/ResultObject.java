@@ -5,7 +5,7 @@ package com.wangweihao.Object;
  */
 public class ResultObject {
     private String name;
-    private byte[] head;
+    private String head;
     private String personNumber;
     private String workPhoneNumber;
     private String homePhoneNumber;
@@ -26,7 +26,7 @@ public class ResultObject {
         return name;
     }
 
-    public byte[] getHead() {
+    public String getHead() {
         return head;
     }
 
@@ -74,7 +74,7 @@ public class ResultObject {
         this.name = name;
     }
 
-    public void setHead(byte[] head) {
+    public void setHead(String head) {
         this.head = head;
     }
 
