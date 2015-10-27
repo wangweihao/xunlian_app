@@ -27,6 +27,7 @@ public class CreateQRCode extends AccessDatabase {
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
         System.out.println("创建二维码");
+        setDerivedClassOtherMeber();
         saveQRcode();
         return this;
     }
