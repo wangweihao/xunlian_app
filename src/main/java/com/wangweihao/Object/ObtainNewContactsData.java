@@ -1,12 +1,10 @@
 package com.wangweihao.Object;
 
 import com.wangweihao.AccessDatabase.AccessDatabase;
-import com.wangweihao.ContactType.Contact;
 import com.wangweihao.HelpClass.ContactType;
 import com.wangweihao.HelpClass.ObtainData;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,36 +38,40 @@ public class ObtainNewContactsData extends AccessDatabase {
         return resultSet.getInt(1);
     }
 
-    private void getFriendId() throws SQLException {
-        friendId = new ArrayList<Integer>();
-        userId = getUserAccountId();
-        String sqlGetFriendId = "select friendId from UserFriend where uid = \"" + userId  + "\";";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendId);
+
+    private void getFriendIdAndIsUpdate() throws SQLException {
+        FriendIdAndIsUpdate = new HashMap<Integer, Integer>();
+        UserId = getUserAccountId();
+        String sqlGetFriendIdAndIsUpdate = "select friendId, isUpdate from UserFriend where uid = \"" + UserId + "\" and" +
+                " isUpdate != 0;";
+        preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendIdAndIsUpdate);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
-            friendId.add(resultSet.getInt(1));
+            FriendIdAndIsUpdate.put(resultSet.getInt(1), resultSet.getInt(2));
         }
     }
 
-    private void getIsUpdateFriend() throws SQLException {
-        isUpdateFriend = new HashMap<Integer, Integer>();
-        getFriendId();
-        for (Integer Id : friendId){
-            String sqlGetFriendIsUpdate = "select isUpdate from UserFriend where uid = \"" + Id + "\" and isUpdate != 0 " +
-                    "and friendId = \"" + userId + "\";";
-            preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendIsUpdate);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                if(resultSet.getInt(1) != 0){
-                    isUpdateFriend.put(Id, resultSet.getInt(1));
-                }
-            }
-        }
+    private JSONObject getNameAndHead(int friendId) throws SQLException {
+        JSONObject oneFriend = new JSONObject();
+        String sqlGetNameAndHead = "select name, head from UserInfo where uid = \"" + friendId + "\";";
+        preparedStatement = DBPoolConnection.prepareStatement(sqlGetNameAndHead);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        oneFriend.put("name", resultSet.getString(1));
+        oneFriend.put("head", resultSet.getBytes(2));
+        return oneFriend;
+    }
+
+    private void modifyFriendIsUpdate(int userId, int friendId) throws SQLException {
+        String sqlmodifyFriendIsUpdate = "update UserFriend set isUpdate = 0 where uid = \"" + userId + "\" " +
+                "and friendId = \"" + friendId + "\";";
+        preparedStatement = DBPoolConnection.prepareStatement(sqlmodifyFriendIsUpdate);
+        preparedStatement.executeUpdate();
     }
 
     private void packUpdateFriend() throws SQLException {
-        getIsUpdateFriend();
-        if (isUpdateFriend.isEmpty()){
+        getFriendIdAndIsUpdate();
+        if (FriendIdAndIsUpdate.isEmpty()){
             ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
                     "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
                     "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"无好友更新信息\"}}";
@@ -79,39 +81,37 @@ public class ObtainNewContactsData extends AccessDatabase {
             jsonResponse.put("error", 0);
             jsonResponse.put("status", "success");
             jsonResponse.put("date", ObtainData.getData());
-            for (Integer friendId : isUpdateFriend.keySet()){
-                JSONObject oneFriend = new JSONObject();
-                String sqlGetNameAndHead = "select name, head from UserInfo where uid = \"" + friendId + "\";";
-                preparedStatement = DBPoolConnection.prepareStatement(sqlGetNameAndHead);
-                resultSet = preparedStatement.executeQuery();
-                resultSet.next();
-                oneFriend.put("name", resultSet.getString(1));
-                oneFriend.put("head", resultSet.getBytes(2));
-                isUpdateFriend.get(friendId);
+            for (Integer friendId : FriendIdAndIsUpdate.keySet()){
+                JSONObject oneFriend = getNameAndHead(friendId);
                 for (Integer type : ContactType.ContactType){
-                    Integer isUpdate = isUpdateFriend.get(friendId);
+                    Integer isUpdate = FriendIdAndIsUpdate.get(friendId);
                     Integer saveType = type;
-                    type &= isUpdate;
-                    if (type == 0){
+                    /*
+                       与运算，如果IsUpdate相应的位为1，
+                       那么saveType值不变，否则saveType值变为0。
+                       */
+                    saveType &= isUpdate;
+                    if (saveType != 0){
                         String sqlObtainFriendUpdateContact = "select content from UserContact where uid = \"" + friendId
                                 + "\" and type = " + type + ";";
                         preparedStatement = DBPoolConnection.prepareStatement(sqlObtainFriendUpdateContact);
                         resultSet = preparedStatement.executeQuery();
                         resultSet.next();
-                        String contactType = ContactType.ContactMap.get(saveType);
+                        String contactType = ContactType.ContactMap.get(type);
                         oneFriend.put(contactType, resultSet.getString(1));
                     }
 
                 }
                 jsonFriend.put(oneFriend);
+                modifyFriendIsUpdate(UserId, friendId);
             }
             jsonResponse.put("result", jsonFriend);
             ResponseString = jsonResponse.toString();
+
         }
     }
 
     private ResultSet resultSet;
-    private List<Integer> friendId;
-    private HashMap<Integer, Integer> isUpdateFriend;
-    private int userId;
+    private HashMap<Integer, Integer> FriendIdAndIsUpdate;
+    private int UserId;
 }
