@@ -5,6 +5,7 @@ import com.wangweihao.HelpClass.ContactType;
 import com.wangweihao.HelpClass.ObtainData;
 import org.json.JSONObject;
 
+import java.net.ConnectException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,9 +13,13 @@ import java.sql.SQLException;
  * Created by wwh on 15-10-27.
  */
 public class SaveUserInfo extends AccessDatabase{
-    SaveUserInfo(){ super(); }
-    SaveUserInfo(int _mark, String _account){
+    public SaveUserInfo(){
+        super();
+        UserInfo = new ResultObject();
+    }
+    public SaveUserInfo(int _mark, String _account) {
         super(_mark, _account);
+        UserInfo = new ResultObject();
     }
 
     @Override
@@ -28,16 +33,19 @@ public class SaveUserInfo extends AccessDatabase{
     @Override
     public void setDerivedClassOtherMeber(){
         jsonObject = new JSONObject(RequestString);
-        UserInfo.setName(jsonObject.getString("name"));
-        UserInfo.setHead(jsonObject.getString("head"));
-        UserInfo.setPersonNumber(jsonObject.getString("personPhoneNumber"));
-        UserInfo.setHomePhoneNumber(jsonObject.getString("homePhoneNumber"));
-        UserInfo.setWorkPhoneNumber(jsonObject.getString("workPhoneNumber"));
-        UserInfo.setPersonEmail(jsonObject.getString("personMailNumber"));
-        UserInfo.setHomeEmail(jsonObject.getString("homeMailNumber"));
-        UserInfo.setWorkPhoneNumber(jsonObject.getString("workMailNumber"));
-        UserInfo.setQqNumber(jsonObject.getString("qqNumber"));
-        UserInfo.setWeiboNumber(jsonObject.getString("weiboNumber"));
+        JSONObject personInfoJson= jsonObject.getJSONObject("personInfo");
+        JSONObject emailInfoJson = personInfoJson.getJSONObject("emailInfo");
+        JSONObject phoneInfoJson = personInfoJson.getJSONObject("phoneInfo");
+        UserInfo.setName(personInfoJson.getString("name"));
+        UserInfo.setHead(personInfoJson.getString("head"));
+        UserInfo.setPersonNumber(phoneInfoJson.getString("personPhoneNumber"));
+        UserInfo.setHomePhoneNumber(phoneInfoJson.getString("homePhoneNumber"));
+        UserInfo.setWorkPhoneNumber(phoneInfoJson.getString("workPhoneNumber"));
+        UserInfo.setPersonEmail(emailInfoJson.getString("personMailNumber"));
+        UserInfo.setHomeEmail(emailInfoJson.getString("homeMailNumber"));
+        UserInfo.setWorkPhoneNumber(emailInfoJson.getString("workMailNumber"));
+        UserInfo.setQqNumber(personInfoJson.getString("qqNumber"));
+        UserInfo.setWeiboNumber(personInfoJson.getString("weiboNumber"));
     }
 
     private void saveUserInfo() throws SQLException {
@@ -58,9 +66,10 @@ public class SaveUserInfo extends AccessDatabase{
         JSONObject result = new JSONObject();
         retInfo.put("data", ObtainData.getData());
         retInfo.put("error", 0);
-        retInfo.put("statuc", "success");
-        result.put("requestPhoneNum", ObtainData.getData());
+        retInfo.put("status", "success");
+        result.put("requestPhoneNum", basicObject.getAccount());
         result.put("ResultINFO", "保存成功");
+        result.put("IsSuccess", "success");
         retInfo.put("result", result);
         ResponseString = retInfo.toString();
     }
@@ -76,7 +85,9 @@ public class SaveUserInfo extends AccessDatabase{
     private void SaveContact(int type, String content) throws SQLException {
         String sqlSaveContact = "insert into UserContact (uid, type, content) values (" + UserId +
                 ", " + type + ", \"" + content + "\");";
+        System.out.println(sqlSaveContact + "11111111111111111111111");
         preparedStatement.executeUpdate();
+        System.out.println("向数据库中插入数据...................");
     }
 
     private void saveNameAndHead() throws SQLException {
