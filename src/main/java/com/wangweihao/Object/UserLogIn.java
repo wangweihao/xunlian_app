@@ -45,11 +45,13 @@ public class UserLogIn extends AccessDatabase {
         if(resultSet.getInt(1) == 1){
             retInfo.put("error", 0);
             retInfo.put("status", "success");
-            result.put("resultINFO", "登录成功");
+            result.put("ResultINFO", "登录成功");
+            result.put("IsSuccess", "success");
         }else {
             retInfo.put("error", 1);
             retInfo.put("status", "failure");
-            result.put("resultINFO", "登录失败");
+            result.put("ResultINFO", "登录失败");
+            result.put("IsSuccess", "failure");
         }
         retInfo.put("result", result);
         ResponseString = retInfo.toString();
