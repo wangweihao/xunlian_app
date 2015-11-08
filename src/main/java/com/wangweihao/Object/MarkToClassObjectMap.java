@@ -25,7 +25,7 @@ public class MarkToClassObjectMap {
                 put(11, "com.wangweihao.Object.CreateQRCode");
                 put(12, "com.wangweihao.Object.UserLogIn");
                 put(13, "com.wangweihao.Object.DeleteFriend");
-
+                put(14, "com.wangweihao.Object.SaveUserInfo");
             }
         };
     }

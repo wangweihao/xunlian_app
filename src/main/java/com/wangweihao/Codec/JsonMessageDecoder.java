@@ -42,7 +42,10 @@ public class JsonMessageDecoder {
          * 注意反射时访问权限问题
          */
         Class messageObject = Class.forName(mapObject.Mapping(decodeObject.getMark()));
+        System.out.println("---------------" + mapObject.Mapping(decodeObject.getMark()));
+        System.out.println("实例化类-----------");
         AccessDatabase accessDatabaseObject = (AccessDatabase) messageObject.newInstance();
+        System.out.println("实例化类-----------");
         //accessDatabaseObject.basicObject.setMark(requestJson.getInt("mark"));
         //accessDatabaseObject.basicObject.setAccount(requestJson.getString("account"));
         accessDatabaseObject.setRequestString(requestStr);
