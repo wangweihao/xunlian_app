@@ -46,15 +46,18 @@ public class AccountRegister extends AccessDatabase {
     @Override
     public void ConstructSelfInfo(int SuccessOrFailure){
         if(ResponseString == null) {
-            if (SuccessOrFailure == 1) {
+            /*if (SuccessOrFailure == 1) {
                 ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
-                        "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"Is Success\":\"success\"," +
+                        "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
                         "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"注册成功\"}}";
             } else {
                 ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
                         "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"failure\"," +
                         "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"注册失败\"}}";
-            }
+            }*/
+            ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
+                    "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
+                    "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"帐号密码设置成功\"}}";
         }
     }
 
