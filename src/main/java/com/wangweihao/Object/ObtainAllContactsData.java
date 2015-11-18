@@ -30,19 +30,38 @@ public class ObtainAllContactsData extends AccessDatabase {
 
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
-        System.out.println("获得所有的联系人数据");
-        setDerivedClassOtherMeber();
-        getUserFriendInfo();
-        packFriendInfo();
+        try{
+            System.out.println("获得所有的联系人数据");
+            setDerivedClassOtherMeber();
+            getUserFriendInfo();
+            packFriendInfo();
+        }catch (SQLException e){
+            JSONObject jsonResponse = new JSONObject();
+            JSONObject jsonInfo = new JSONObject();
+            jsonResponse.put("error", 1);
+            jsonResponse.put("status", "failure");
+            jsonResponse.put("date", ObtainData.getData());
+            jsonInfo.put("requestPhoneNum", basicObject.getAccount());
+            jsonInfo.put("IsSuccess", "failure");
+            jsonInfo.put("mark", 6);
+            jsonInfo.put("ResultInfo", "查找账户信息失败");
+            jsonResponse.put("result", jsonInfo);
+            ResponseString = jsonResponse.toString();
+            e.printStackTrace();
+        }
         return this;
     }
 
     private int getUserAccountId() throws SQLException {
-        String sqlGetUserAccountId = "select uid from UserInfo where account = \'" +
-                basicObject.getAccount() + "\';";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserAccountId);
-        resultSet = preparedStatement.executeQuery();
-        resultSet.next();
+        try{
+            String sqlGetUserAccountId = "select uid from UserInfo where account = \'" +
+                    basicObject.getAccount() + "\';";
+            preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserAccountId);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+        }catch (SQLException sqle){
+            throw  sqle;
+        }
         return resultSet.getInt(1);
     }
 
@@ -104,7 +123,7 @@ public class ObtainAllContactsData extends AccessDatabase {
         ResponseString = jsonResponse.toString();
     }
 
-    /* 得到所有好友的信息并组床成响应 */
+    /* 得到所有好友的信息并组装成响应 */
     private void getUserFriendInfo() throws SQLException {
         getUserFriendAccountId();
         for (int UserId : FriendId){
