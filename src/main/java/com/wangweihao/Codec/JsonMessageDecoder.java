@@ -43,11 +43,9 @@ public class JsonMessageDecoder {
          */
         Class messageObject = Class.forName(mapObject.Mapping(decodeObject.getMark()));
         System.out.println("---------------" + mapObject.Mapping(decodeObject.getMark()));
-        System.out.println("实例化类-----------");
+        System.out.println("实例化类-----------1");
         AccessDatabase accessDatabaseObject = (AccessDatabase) messageObject.newInstance();
-        System.out.println("实例化类-----------");
-        //accessDatabaseObject.basicObject.setMark(requestJson.getInt("mark"));
-        //accessDatabaseObject.basicObject.setAccount(requestJson.getString("account"));
+        System.out.println("实例化类-----------2");
         accessDatabaseObject.setRequestString(requestStr);
         accessDatabaseObject.basicObject.setValue(decodeObject);
         System.out.println("requestStr:" + requestStr);

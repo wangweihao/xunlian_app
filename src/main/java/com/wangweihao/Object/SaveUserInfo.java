@@ -34,8 +34,8 @@ public class SaveUserInfo extends AccessDatabase{
     public void setDerivedClassOtherMeber(){
         jsonObject = new JSONObject(RequestString);
         JSONObject personInfoJson= jsonObject.getJSONObject("personInfo");
-        JSONObject emailInfoJson = personInfoJson.getJSONObject("emailInfo");
-        JSONObject phoneInfoJson = personInfoJson.getJSONObject("phoneInfo");
+        JSONObject emailInfoJson = jsonObject.getJSONObject("emailInfo");
+        JSONObject phoneInfoJson = jsonObject.getJSONObject("phoneInfo");
         UserInfo.setName(personInfoJson.getString("name"));
         UserInfo.setHead(personInfoJson.getString("head"));
         UserInfo.setPersonNumber(phoneInfoJson.getString("personPhoneNumber"));
@@ -44,8 +44,8 @@ public class SaveUserInfo extends AccessDatabase{
         UserInfo.setPersonEmail(emailInfoJson.getString("personMailNumber"));
         UserInfo.setHomeEmail(emailInfoJson.getString("homeMailNumber"));
         UserInfo.setWorkPhoneNumber(emailInfoJson.getString("workMailNumber"));
-        UserInfo.setQqNumber(personInfoJson.getString("qqNumber"));
-        UserInfo.setWeiboNumber(personInfoJson.getString("weiboNumber"));
+        UserInfo.setQqNumber(jsonObject.getString("qqNumber"));
+        UserInfo.setWeiboNumber(jsonObject.getString("weiboNumber"));
     }
 
     private void saveUserInfo() throws SQLException {
