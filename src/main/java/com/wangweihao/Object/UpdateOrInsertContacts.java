@@ -48,17 +48,20 @@ public class UpdateOrInsertContacts extends AccessDatabase {
 
 
     private void InsertContact() throws SQLException {
-        String sqlInsertContact = "insert into UserContact (uid, type, content) values ((select uid from UserInfo" +
-                " where account = \'" + basicObject.getAccount() + "\'), " + Type + ", \'" + Contact +"\');";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlInsertContact);
-        if (preparedStatement.executeUpdate() == 1){
-            ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
-                    "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
-                    "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"新建联系方式成功\"}}";
-        }else {
+        try{
+            String sqlInsertContact = "insert into UserContact (uid, type, content) values ((select uid from UserInfo" +
+                    " where account = \'" + basicObject.getAccount() + "\'), " + Type + ", \'" + Contact +"\');";
+            preparedStatement = DBPoolConnection.prepareStatement(sqlInsertContact);
+            if (preparedStatement.executeUpdate() == 1){
+                ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
+                        "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
+                        "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"新建联系方式成功\"}}";
+            }
+        }catch (SQLException sqle){
             ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
                     "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
                     "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"新建联系方式失败\"}}";
+            sqle.printStackTrace();
         }
     }
 
