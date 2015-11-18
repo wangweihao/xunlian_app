@@ -23,7 +23,7 @@ public class XlServer {
     public XlServer(String ip, int port){
         serverIp = ip;
         serverPort = port;
-        dbPool = new DatabasePool("root", "w13659218813", "127.0.0.1", "XL_db");
+        dbPool = new DatabasePool("rds1l1z1ubg1x0w81y40", "w13659218813", "rds1l1z1ubg1x0w81y40.mysql.rds.aliyuncs.com", "XL_db");
     }
 
     public void run() throws Exception{
@@ -55,7 +55,7 @@ public class XlServer {
 
     /*单元测试服务端*/
     public static void main(String[] args) throws Exception {
-        XlServer server = new XlServer("192.168.20.227", 10000);
+        XlServer server = new XlServer("121.42.210.40", 10000);
         server.run();
     }
 }
