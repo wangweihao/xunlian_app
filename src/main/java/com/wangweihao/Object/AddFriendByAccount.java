@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 /**
  * Created by wwh on 15-10-21.
+ * 需要改进对方账户不存在的情况
  */
 public class AddFriendByAccount extends AccessDatabase {
     public AddFriendByAccount() {
@@ -51,7 +52,7 @@ public class AddFriendByAccount extends AccessDatabase {
             Info.put("requestPhoneNum", basicObject.getAccount());
             Info.put("IsSunncess", "failure");
             Info.put("mark", basicObject.getMark());
-            Info.put("ResultINFO", "对方已是您的好友");
+            Info.put("ResultINFO", "输入信息有误：对方已是您的好友或帐号不存在，请确认后重试");
             errorRet.put("result", Info);
             ResponseString = errorRet.toString();
             return 1;
