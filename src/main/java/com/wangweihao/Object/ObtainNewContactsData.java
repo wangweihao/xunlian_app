@@ -24,8 +24,22 @@ public class ObtainNewContactsData extends AccessDatabase {
 
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
-        System.out.println("获得刷新后的联系人数据");
-        packUpdateFriend();
+        try{
+            System.out.println("获得刷新后的联系人数据");
+            packUpdateFriend();
+        }catch (SQLException e){
+            JSONObject jsonResponse = new JSONObject();
+            JSONObject jsonInfo = new JSONObject();
+            jsonResponse.put("error", 0);
+            jsonResponse.put("status", "success");
+            jsonResponse.put("date", ObtainData.getData());
+            jsonInfo.put("requestPhoneNum", basicObject.getAccount());
+            jsonInfo.put("IsSuccess", "success");
+            jsonInfo.put("mark", 6);
+            jsonInfo.put("ResultInfo", "暂无好友更新数据");
+            jsonResponse.put("result", jsonInfo);
+            ResponseString = jsonResponse.toString();
+        }
         return this;
     }
 
@@ -40,14 +54,18 @@ public class ObtainNewContactsData extends AccessDatabase {
 
 
     private void getFriendIdAndIsUpdate() throws SQLException {
-        FriendIdAndIsUpdate = new HashMap<Integer, Integer>();
-        UserId = getUserAccountId();
-        String sqlGetFriendIdAndIsUpdate = "select friendId, isUpdate from UserFriend where uid = \"" + UserId + "\" and" +
-                " isUpdate != 0;";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendIdAndIsUpdate);
-        resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
-            FriendIdAndIsUpdate.put(resultSet.getInt(1), resultSet.getInt(2));
+        try{
+            FriendIdAndIsUpdate = new HashMap<Integer, Integer>();
+            UserId = getUserAccountId();
+            String sqlGetFriendIdAndIsUpdate = "select friendId, isUpdate from UserFriend where uid = \"" + UserId + "\" and" +
+                    " isUpdate != 0;";
+            preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendIdAndIsUpdate);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                FriendIdAndIsUpdate.put(resultSet.getInt(1), resultSet.getInt(2));
+            }
+        }catch (SQLException e){
+            throw e;
         }
     }
 
