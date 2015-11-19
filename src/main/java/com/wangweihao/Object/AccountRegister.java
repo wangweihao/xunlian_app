@@ -4,7 +4,6 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
 import com.wangweihao.HelpClass.ObtainData;
 import org.json.JSONObject;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -33,7 +32,6 @@ public class AccountRegister extends AccessDatabase {
                     "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"failure\"," +
                     "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"帐号以存在\"}}";
         }
-
         return this;
     }
 

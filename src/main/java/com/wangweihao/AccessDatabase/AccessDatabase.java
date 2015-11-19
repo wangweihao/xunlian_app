@@ -51,6 +51,10 @@ public class AccessDatabase {
         System.out.println("requestString:" + RequestString);
     }
 
+    public void returnResource() throws SQLException {
+        DBPoolConnection.close();
+    }
+
     public RecvBasicMessageObject basicObject;
     public String sqlString;
     public Connection DBPoolConnection;

@@ -1,4 +1,5 @@
 package com.wangweihao.Xl_handler;
+import com.wangweihao.AccessDatabase.AccessDatabase;
 import com.wangweihao.Codec.JsonMessageDecoder;
 import com.wangweihao.Codec.JsonMessageEncoder;
 import io.netty.buffer.ByteBuf;
@@ -25,7 +26,9 @@ public class XlServerHandler extends ChannelHandlerAdapter{
         if(msg instanceof ByteBuf){
             JsonMessageDecoder decoder = new JsonMessageDecoder((ByteBuf)msg);
             /* 解码后访问数据库，编码发送给对方 */
-            JsonMessageEncoder encoder = new JsonMessageEncoder(decoder.Decoding().AccessXlDatabase());
+            AccessDatabase accessDatabase = decoder.Decoding().AccessXlDatabase();
+            accessDatabase.returnResource();
+            JsonMessageEncoder encoder = new JsonMessageEncoder(accessDatabase);
             encoder.Encoding();
             ctx.write(encoder.send());
         }
