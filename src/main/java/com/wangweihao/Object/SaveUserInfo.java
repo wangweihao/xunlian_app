@@ -6,6 +6,7 @@ import com.wangweihao.HelpClass.ObtainData;
 import org.json.JSONObject;
 
 import java.net.ConnectException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -43,7 +44,7 @@ public class SaveUserInfo extends AccessDatabase{
         UserInfo.setWorkPhoneNumber(phoneInfoJson.getString("workPhoneNumber"));
         UserInfo.setPersonEmail(emailInfoJson.getString("personMailNumber"));
         UserInfo.setHomeEmail(emailInfoJson.getString("homeMailNumber"));
-        UserInfo.setWorkPhoneNumber(emailInfoJson.getString("workMailNumber"));
+        UserInfo.setWorkEmail(emailInfoJson.getString("workMailNumber"));
         UserInfo.setQqNumber(jsonObject.getString("qqNumber"));
         UserInfo.setWeiboNumber(jsonObject.getString("weiboNumber"));
     }
@@ -54,23 +55,31 @@ public class SaveUserInfo extends AccessDatabase{
     }
 
     private void saveUserContact() throws SQLException {
-        SaveContact(0x1, UserInfo.getPersonNumber());
-        SaveContact(0x2, UserInfo.getWorkPhoneNumber());
-        SaveContact(0x4, UserInfo.getHomePhoneNumber());
-        SaveContact(0x8, UserInfo.getPersonEmail());
-        SaveContact(0x10, UserInfo.getWorkEmail());
-        SaveContact(0x20, UserInfo.getHomeEmail());
-        SaveContact(0x40, UserInfo.getQqNumber());
-        SaveContact(0x80, UserInfo.getWeiboNumber());
         JSONObject retInfo = new JSONObject();
         JSONObject result = new JSONObject();
-        retInfo.put("data", ObtainData.getData());
-        retInfo.put("error", 0);
         retInfo.put("status", "success");
+        retInfo.put("data", ObtainData.getData());
         result.put("requestPhoneNum", basicObject.getAccount());
-        result.put("ResultINFO", "保存成功");
-        result.put("IsSuccess", "success");
-        retInfo.put("result", result);
+        try {
+            SaveContact(0x1, UserInfo.getPersonNumber());
+            SaveContact(0x2, UserInfo.getHomePhoneNumber());
+            SaveContact(0x4, UserInfo.getWorkPhoneNumber());
+            SaveContact(0x8, UserInfo.getPersonEmail());
+            SaveContact(0x10, UserInfo.getHomeEmail());
+            SaveContact(0x20, UserInfo.getWorkEmail());
+            SaveContact(0x40, UserInfo.getQqNumber());
+            SaveContact(0x80, UserInfo.getWeiboNumber());
+            retInfo.put("error", 0);
+            result.put("ResultINFO", "保存成功");
+            result.put("IsSuccess", "success");
+            retInfo.put("result", result);
+        }catch (SQLException e){
+            e.printStackTrace();
+            retInfo.put("error", 1);
+            result.put("ResultINFO", "保存失败");
+            result.put("IsSuccess", "failure");
+            retInfo.put("result", result);
+        }
         ResponseString = retInfo.toString();
     }
 
@@ -85,7 +94,8 @@ public class SaveUserInfo extends AccessDatabase{
     private void SaveContact(int type, String content) throws SQLException {
         String sqlSaveContact = "insert into UserContact (uid, type, content) values (" + UserId +
                 ", " + type + ", \"" + content + "\");";
-        System.out.println(sqlSaveContact + "11111111111111111111111");
+        System.out.println(sqlSaveContact);
+        preparedStatement = DBPoolConnection.prepareStatement(sqlSaveContact);
         preparedStatement.executeUpdate();
         System.out.println("向数据库中插入数据...................");
     }
