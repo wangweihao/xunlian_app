@@ -1,7 +1,6 @@
 package com.wangweihao.Object;
 
 import com.wangweihao.AccessDatabase.AccessDatabase;
-import com.wangweihao.HelpClass.ContactType;
 import com.wangweihao.HelpClass.ObtainData;
 import org.json.JSONObject;
 
@@ -9,10 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by wwh on 15-10-21.
- * 需要改进对方账户不存在的情况
+ * Created by wwh on 15-11-22.
  */
-public class AddFriendByAccount extends AccessDatabase {
+public class AddFriendByAccount extends AccessDatabase{
     public AddFriendByAccount() {
         super();
     }
@@ -24,8 +22,7 @@ public class AddFriendByAccount extends AccessDatabase {
     public AccessDatabase AccessXlDatabase() throws SQLException {
         System.out.println("通过帐号添加好友");
         setDerivedClassOtherMeber();
-        if(addFriendByAccount() == 0)
-            getFriendInfo();
+        addFriendByAccount();
         return this;
     }
 
@@ -34,71 +31,41 @@ public class AddFriendByAccount extends AccessDatabase {
         jsonObject = new JSONObject(RequestString);
         friendAccount = new String(jsonObject.getString("friendaccount"));
     }
-
     private int addFriendByAccount() throws SQLException {
         String sqlGetUserAccountId = "insert into UserFriend (uid, friendId) values (" +
                 "(select uid from UserInfo where account = \"" + basicObject.getAccount() + "\")," +
                 "(select uid from UserInfo where account = \"" + friendAccount + "\"));";
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserAccountId);
+        /* 组装返回 Json 信息 */
+        JSONObject Info = new JSONObject();
+        Info.put("requestPhoneNum", basicObject.getAccount());
+        Info.put("mark", basicObject.getMark());
         try {
             preparedStatement.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e){
             e.printStackTrace();
-            JSONObject Info = new JSONObject();
             JSONObject errorRet = new JSONObject();
             errorRet.put("error", 1);
             errorRet.put("status", "success");
             errorRet.put("data", ObtainData.getData());
-            Info.put("requestPhoneNum", basicObject.getAccount());
-            Info.put("IsSunncess", "failure");
-            Info.put("mark", basicObject.getMark());
+            Info.put("IsSuccess", "failure");
             Info.put("ResultINFO", "输入信息有误：对方已是您的好友或帐号不存在，请确认后重试");
             errorRet.put("result", Info);
             ResponseString = errorRet.toString();
             return 1;
         }
+        JSONObject rightRet = new JSONObject();
+        rightRet.put("error", 0);
+        rightRet.put("status", "success");
+        rightRet.put("data", ObtainData.getData());
+        Info.put("IsSuccess", "success");
+        Info.put("ResultINFO", "添加好友成功，对方已是您的好友");
+        rightRet.put("result", Info);
+        ResponseString = rightRet.toString();
         return 0;
     }
-
-    private void getFriendInfo() throws SQLException {
-        String sqlGetfriendUid = "select uid from UserInfo where account = \"" + friendAccount + "\";";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlGetfriendUid);
-        resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        FriendUid = resultSet.getInt(1);
-        JSONObject friendInfo = new JSONObject();
-        friendInfo.put("error", 0);
-        friendInfo.put("status", "success");
-        friendInfo.put("date", ObtainData.getData());
-        getNameAndHead(friendInfo);
-        getFriendContact(friendInfo);
-    }
-
-    private void getNameAndHead(JSONObject friendInfo) throws SQLException {
-        String sqlGetNameAndHead = "select name, head from UserInfo where uid = \"" +
-                FriendUid + "\";";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlGetNameAndHead);
-        resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        friendInfo.put("name", resultSet.getString(1));
-        friendInfo.put("head", resultSet.getBytes(2));
-    }
-
-    private void getFriendContact(JSONObject friendInfo) throws SQLException {
-        String sqlGetFriendContact = "select type, content from UserContact where uid = " + FriendUid + ";";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendContact);
-        resultSet = preparedStatement.executeQuery();
-        JSONObject friendContact = new JSONObject();
-        while (resultSet.next()){
-            friendContact.put(ContactType.ContactMap.get(resultSet.getInt(1)), resultSet.getString(2));
-        }
-        friendInfo.put("result", friendContact);
-        ResponseString = friendInfo.toString();
-    }
-
 
     private ResultSet resultSet;
     private int FriendUid;
     private String friendAccount;
 }
-
