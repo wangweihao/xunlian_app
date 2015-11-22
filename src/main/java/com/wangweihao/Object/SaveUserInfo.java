@@ -92,15 +92,13 @@ public class SaveUserInfo extends AccessDatabase{
     }
 
     private void SaveContact(int type, String content) throws SQLException {
-        /* 如果发来的内容为空串，说明用户没有填写信息。 不向数据库中插入数据  */
-        if(content != "") {
-            String sqlSaveContact = "insert into UserContact (uid, type, content) values (" + UserId +
-                    ", " + type + ", \"" + content + "\");";
-            System.out.println(sqlSaveContact);
-            preparedStatement = DBPoolConnection.prepareStatement(sqlSaveContact);
-            preparedStatement.executeUpdate();
-            System.out.println("向数据库中插入数据...................");
-        }
+        /* 如果发来的内容为空串，说明用户没有填写信息。 插入空数据，后面直接更新即可 */
+        String sqlSaveContact = "insert into UserContact (uid, type, content) values (" + UserId +
+                ", " + type + ", \"" + content + "\");";
+        System.out.println(sqlSaveContact);
+        preparedStatement = DBPoolConnection.prepareStatement(sqlSaveContact);
+        preparedStatement.executeUpdate();
+        System.out.println("向数据库中插入数据...................");
     }
 
     private void saveNameAndHead() throws SQLException {

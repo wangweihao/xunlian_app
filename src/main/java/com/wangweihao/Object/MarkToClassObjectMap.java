@@ -17,7 +17,7 @@ public class MarkToClassObjectMap {
                 put(3, "com.wangweihao.Object.VerifySecretSecurity");
                 put(4, "com.wangweihao.Object.ModifySecret");
                 put(5, "com.wangweihao.Object.ModifyData");
-                put(6, "com.wangweihao.Object.UpdateOrInsertContacts");
+                put(6, "com.wangweihao.Object.UpdateContact");
                 put(7, "com.wangweihao.Object.ObtainAllContactsData");
                 put(8, "com.wangweihao.Object.ObtainNewContactsData");
                 put(9, "com.wangweihao.Object.AddFriendSearchByAccount");

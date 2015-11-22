@@ -10,7 +10,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
-import java.util.EventListener;
 
 /**
  * Created by wwh on 15-10-18.
@@ -25,7 +24,6 @@ public class XlServer {
         serverPort = port;
         dbPool = new DatabasePool("rv27st52b707t671", "w13659218813", "rds1l1z1ubg1x0w81y40.mysql.rds.aliyuncs.com", "rv27st52b707t671");
         //dbPool = new DatabasePool("root", "w13659218813", "127.0.0.1", "XL_db");
-
     }
 
     public void run() throws Exception{
@@ -58,7 +56,7 @@ public class XlServer {
     /*单元测试服务端*/
     public static void main(String[] args) throws Exception {
         //XlServer server = new XlServer("121.42.210.40", 10000);
-        XlServer server = new XlServer("192.168.20.227", 10000);
+        XlServer server = new XlServer("10.71.192.203", 10000);
         server.run();
     }
 }
