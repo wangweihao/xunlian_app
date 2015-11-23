@@ -87,19 +87,27 @@ public class AddFriendByQRCode extends AccessDatabase {
                 + getUserAccountId(basicObject.getAccount()) + "\", \"" + getUserAccountId(friendAccount) +
                 "\", " + authority + ");";
         preparedStatement = DBPoolConnection.prepareStatement(sqlAddFriendByQRcode);
+        JSONObject retObj = new JSONObject();
+        JSONObject info = new JSONObject();
+        retObj.put("data", ObtainData.getData());
+        info.put("requestPhoneNum", basicObject.getAccount());
+        info.put("mark", basicObject.getMark());
         try {
             preparedStatement.executeUpdate();
             retFriendInfo();
         }catch (Exception e){
             e.printStackTrace();
-            JSONObject errObj = new JSONObject();
-            errObj.put("error", 1);
-            errObj.put("status", "failure");
-            errObj.put("account", basicObject.getAccount());
-            errObj.put("data", ObtainData.getData());
-            errObj.put("resultInfo", "对方以是您的好友");
-            ResponseString = errObj.toString();
+            retObj.put("error", 1);
+            retObj.put("status", "failure");
+            info.put("IsSuccess", "failure");
+            info.put("ResultINFO", "删除好友失败");
         }
+        retObj.put("error", 0);
+        retObj.put("status", "success");
+        info.put("IsSuccess", "success");
+        info.put("ResultINFO", "删除好友成功");
+        retObj.put("result", info);
+        ResponseString = retObj.toString();
     }
 
     private void retFriendInfo() throws SQLException {
