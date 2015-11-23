@@ -100,12 +100,12 @@ public class AddFriendByQRCode extends AccessDatabase {
             retObj.put("error", 1);
             retObj.put("status", "failure");
             info.put("IsSuccess", "failure");
-            info.put("ResultINFO", "删除好友失败");
+            info.put("ResultINFO", "添加好友失败");
         }
         retObj.put("error", 0);
         retObj.put("status", "success");
         info.put("IsSuccess", "success");
-        info.put("ResultINFO", "删除好友成功");
+        info.put("ResultINFO", "添加好友成功");
         retObj.put("result", info);
         ResponseString = retObj.toString();
     }

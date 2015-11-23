@@ -4,6 +4,7 @@ import com.wangweihao.AccessDatabase.AccessDatabase;
 import com.wangweihao.HelpClass.ObtainData;
 import org.json.JSONObject;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -21,7 +22,11 @@ public class DeleteFriend extends AccessDatabase {
     public AccessDatabase AccessXlDatabase() throws SQLException {
         System.out.println("删除好友");
         setDerivedClassOtherMeber();
-        deleteFriend();
+        if(detectFriendExist() == true) {
+            deleteFriend();
+        }else{
+            AssembleErrorReturnJson();
+        }
         return this;
     }
 
@@ -31,29 +36,64 @@ public class DeleteFriend extends AccessDatabase {
         friendAccount = new String(jsonObject.getString("friendaccount"));
     }
 
+    private boolean detectFriendExist() throws SQLException {
+        String detectFriendExistSql = "select count(*) from UserInfo where account = \"" +
+                friendAccount + "\";";
+        preparedStatement = DBPoolConnection.prepareStatement(detectFriendExistSql);
+        try {
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            if(resultSet.getInt(1) != 1){
+                return false;
+            }
+        }catch (SQLException e){
+            return false;
+        }
+        return true;
+    }
+
     private void deleteFriend() throws SQLException {
         String sqlDeleteFriend =  "delete from UserFriend where " +
                 "friendId = ( select uid from UserInfo where account = \'" + friendAccount
                 + "\') and (select uid from UserInfo where account = \'"  + basicObject.getAccount() + "\');";
         preparedStatement = DBPoolConnection.prepareStatement(sqlDeleteFriend);
-        JSONObject retInfo = new JSONObject();
-        JSONObject result = new JSONObject();
-        retInfo.put("data", ObtainData.getData());
-        result.put("requestPhoneNum", basicObject.getAccount());
+        JSONObject retObj = new JSONObject();
+        JSONObject info = new JSONObject();
+        retObj.put("data", ObtainData.getData());
+        info.put("requestPhoneNum", basicObject.getAccount());
+        info.put("mark", basicObject.getMark());
         try {
             preparedStatement.executeUpdate();
-            retInfo.put("error", 0);
-            retInfo.put("status", "success");
-            result.put("ResultINFO", "删除好友成功");
+
         }catch (SQLException e){
             e.printStackTrace();
-            retInfo.put("error", 1);
-            retInfo.put("status", "failure");
-            result.put("ResultINFO", "删除好友失败");
+            retObj.put("error", 1);
+            retObj.put("status", "failure");
+            info.put("IsSuccess", "failure");
+            info.put("ResultINFO", "删除好友失败");
         }
-        retInfo.put("result", result);
-        ResponseString = retInfo.toString();
+        retObj.put("error", 0);
+        retObj.put("status", "success");
+        info.put("IsSuccess", "success");
+        info.put("ResultINFO", "删除好友成功");
+        retObj.put("result", info);
+        ResponseString = retObj.toString();
+    }
+
+    private void AssembleErrorReturnJson(){
+        JSONObject retObj = new JSONObject();
+        JSONObject info = new JSONObject();
+        retObj.put("data", ObtainData.getData());
+        info.put("requestPhoneNum", basicObject.getAccount());
+        info.put("mark", basicObject.getMark());
+        retObj.put("error", 1);
+        retObj.put("status", "failure");
+        info.put("IsSuccess", "failure");
+        info.put("ResultINFO", "删除好友失败");
+        retObj.put("result", info);
+        ResponseString = retObj.toString();
     }
 
     private String friendAccount;
+    private ResultSet resultSet;
 }
