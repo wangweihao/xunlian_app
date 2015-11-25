@@ -5,6 +5,7 @@ import com.wangweihao.HelpClass.ContactType;
 import com.wangweihao.HelpClass.ObtainData;
 import org.json.JSONObject;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -26,26 +27,30 @@ public class AddFriendSearchByAccount extends AccessDatabase {
 
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
-        System.out.println("通过帐号查询好友");
         setDerivedClassOtherMeber();
-        try{
+        JSONObject Info = new JSONObject();
+        JSONObject errorRet = new JSONObject();
+        errorRet.put("data", ObtainData.getData());
+        Info.put("requestPhoneNum", basicObject.getAccount());
+        Info.put("mark", basicObject.getMark());
+        errorRet.put("error", 1);
+        errorRet.put("status", "success");
+        Info.put("IsSuccess", "failure");
+        System.out.println("通过帐号查询好友");
+        if(detectTheKeyIsRight() == false){
+            Info.put("ResultINFO", "key值不对，请确认后重试");
+            errorRet.put("result", Info);
+            ResponseString = errorRet.toString();
+            return this;
+        }
+        try {
             getFriendInfo();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            JSONObject Info = new JSONObject();
-            JSONObject errorRet = new JSONObject();
-            errorRet.put("error", 1);
-            errorRet.put("status", "success");
-            errorRet.put("data", ObtainData.getData());
-            Info.put("requestPhoneNum", basicObject.getAccount());
-            Info.put("IsSunncess", "failure");
-            Info.put("mark", basicObject.getMark());
             Info.put("ResultINFO", "输入信息有误：对方已是您的好友或帐号不存在，请确认后重试");
             errorRet.put("result", Info);
             ResponseString = errorRet.toString();
-            System.out.println();
         }
-
         return this;
     }
 
@@ -53,6 +58,19 @@ public class AddFriendSearchByAccount extends AccessDatabase {
     public void setDerivedClassOtherMeber(){
         jsonObject = new JSONObject(RequestString);
         friendAccount = new String(jsonObject.getString("friendaccount"));
+        theKey = new String(jsonObject.getString("theKey"));
+    }
+    private boolean detectTheKeyIsRight() throws SQLException {
+        String sqlGetTheKey = "select theKey from UserInfo where account = \""
+                + friendAccount + "\";";
+        preparedStatement = DBPoolConnection.prepareStatement(sqlGetTheKey);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        if(resultSet.getString(1).equalsIgnoreCase(theKey) || resultSet.getString(1).equalsIgnoreCase("")) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     private void getFriendInfo() throws SQLException {
@@ -90,7 +108,7 @@ public class AddFriendSearchByAccount extends AccessDatabase {
             setIsNullFlag++;
         }
         if(setIsNullFlag == 0){
-            friendContact.put("personNumber", "");
+            friendContact.put("personNumber", basicObject.getAccount());
             friendContact.put("workNumber", "");
             friendContact.put("homeNumber", "");
             friendContact.put("personEmail", "");
@@ -98,7 +116,6 @@ public class AddFriendSearchByAccount extends AccessDatabase {
             friendContact.put("homeEmail", "");
             friendContact.put("qqNumber", "");
             friendContact.put("weiboNumber", "");
-
         }
         friendInfo.put("result", friendContact);
         ResponseString = friendInfo.toString();
@@ -108,5 +125,6 @@ public class AddFriendSearchByAccount extends AccessDatabase {
     private ResultSet resultSet;
     private int FriendUid;
     private String friendAccount;
+    private String theKey;
 }
 

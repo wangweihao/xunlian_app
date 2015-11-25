@@ -33,11 +33,11 @@ public class ContactType {
         ContactType.add(0x80);
         ContactMap = new HashMap<Integer, String>();
         ContactMap.put(0x1, "personNumber");
-        ContactMap.put(0x2, "homeNubmer");
-        ContactMap.put(0x4, "workNumber");
+        ContactMap.put(0x2, "workNumber");
+        ContactMap.put(0x4, "homeNumber");
         ContactMap.put(0x8, "personEmail");
-        ContactMap.put(0x10, "homeEmail");
-        ContactMap.put(0x20, "workEmail");
+        ContactMap.put(0x10, "workEmail");
+        ContactMap.put(0x20, "homeEmail");
         ContactMap.put(0x40, "qqNumber");
         ContactMap.put(0x80, "weiboNumber");
     }
