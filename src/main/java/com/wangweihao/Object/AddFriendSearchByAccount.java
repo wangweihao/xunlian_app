@@ -98,6 +98,7 @@ public class AddFriendSearchByAccount extends AccessDatabase {
             friendContact.put("homeEmail", "");
             friendContact.put("qqNumber", "");
             friendContact.put("weiboNumber", "");
+
         }
         friendInfo.put("result", friendContact);
         ResponseString = friendInfo.toString();
