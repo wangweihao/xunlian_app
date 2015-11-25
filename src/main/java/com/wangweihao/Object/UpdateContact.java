@@ -52,6 +52,7 @@ public class UpdateContact extends AccessDatabase {
         for(int i = 0; i < contactArray.length(); ++i){
             JSONObject oneContact = contactArray.getJSONObject(i);
             updateContact.put(oneContact.getInt("type"), oneContact.getString("content"));
+            System.out.println(oneContact.getString("content"));
             typeSum += oneContact.getInt("type");
         }
     }

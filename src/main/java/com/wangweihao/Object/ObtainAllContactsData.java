@@ -110,8 +110,8 @@ public class ObtainAllContactsData extends AccessDatabase {
             friendContactInfo.put("name", oneFriend.getName());
             friendContactInfo.put("head", oneFriend.getHead());
             friendContactInfo.put("personNumber", oneFriend.contactSet.get(1).getContact());
-            friendContactInfo.put("homePhoneNumber", oneFriend.contactSet.get(2).getContact());
-            friendContactInfo.put("workPhoneNumber", oneFriend.contactSet.get(4).getContact());
+            friendContactInfo.put("workPhoneNumber", oneFriend.contactSet.get(2).getContact());
+            friendContactInfo.put("homePhoneNumber", oneFriend.contactSet.get(4).getContact());
             friendContactInfo.put("personEmail", oneFriend.contactSet.get(8).getContact());
             friendContactInfo.put("homeEmail", oneFriend.contactSet.get(16).getContact());
             friendContactInfo.put("workEmail", oneFriend.contactSet.get(32).getContact());
