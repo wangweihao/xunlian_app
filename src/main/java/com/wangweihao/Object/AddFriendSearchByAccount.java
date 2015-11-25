@@ -29,7 +29,7 @@ public class AddFriendSearchByAccount extends AccessDatabase {
         System.out.println("通过帐号查询好友");
         setDerivedClassOtherMeber();
         try{
-        getFriendInfo();
+            getFriendInfo();
         }catch (SQLException e){
             e.printStackTrace();
             JSONObject Info = new JSONObject();
@@ -43,6 +43,7 @@ public class AddFriendSearchByAccount extends AccessDatabase {
             Info.put("ResultINFO", "输入信息有误：对方已是您的好友或帐号不存在，请确认后重试");
             errorRet.put("result", Info);
             ResponseString = errorRet.toString();
+            System.out.println();
         }
 
         return this;
@@ -83,8 +84,20 @@ public class AddFriendSearchByAccount extends AccessDatabase {
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendContact);
         resultSet = preparedStatement.executeQuery();
         JSONObject friendContact = new JSONObject();
+        int setIsNullFlag = 0;
         while (resultSet.next()){
             friendContact.put(ContactType.ContactMap.get(resultSet.getInt(1)), resultSet.getString(2));
+            setIsNullFlag++;
+        }
+        if(setIsNullFlag == 0){
+            friendContact.put("personNumber", "");
+            friendContact.put("workNumber", "");
+            friendContact.put("homeNumber", "");
+            friendContact.put("personEmail", "");
+            friendContact.put("workEmail", "");
+            friendContact.put("homeEmail", "");
+            friendContact.put("qqNumber", "");
+            friendContact.put("weiboNumber", "");
         }
         friendInfo.put("result", friendContact);
         ResponseString = friendInfo.toString();
