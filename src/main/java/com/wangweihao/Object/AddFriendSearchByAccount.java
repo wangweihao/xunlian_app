@@ -27,6 +27,7 @@ public class AddFriendSearchByAccount extends AccessDatabase {
 
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
+        System.out.println("-----------------------------");
         setDerivedClassOtherMeber();
         JSONObject Info = new JSONObject();
         JSONObject errorRet = new JSONObject();
@@ -68,10 +69,14 @@ public class AddFriendSearchByAccount extends AccessDatabase {
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetTheKey);
         resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        if(resultSet.getString(1).equalsIgnoreCase(theKey) || resultSet.getString(1).equalsIgnoreCase(""))
-        {
-            return true;
-        }else {
+        try {
+            if (resultSet.getString(1).equalsIgnoreCase(theKey) || resultSet.getString(1).equalsIgnoreCase("")) {
+                return true;
+            }else {
+                return false;
+            }
+        }catch (SQLException e){
+            e.getNextException();
             return false;
         }
     }
@@ -79,15 +84,21 @@ public class AddFriendSearchByAccount extends AccessDatabase {
     private void getFriendInfo() throws SQLException {
         String sqlGetfriendUid = "select uid from UserInfo where account = \"" + friendAccount + "\";";
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetfriendUid);
-        resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        FriendUid = resultSet.getInt(1);
-        JSONObject friendInfo = new JSONObject();
-        friendInfo.put("error", 0);
-        friendInfo.put("status", "success");
-        friendInfo.put("date", ObtainData.getData());
-        getNameAndHead(friendInfo);
-        getFriendContact(friendInfo);
+        try {
+            /* 如果抛出异常，说明账户不存在 */
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            FriendUid = resultSet.getInt(1);
+            JSONObject friendInfo = new JSONObject();
+            friendInfo.put("error", 0);
+            friendInfo.put("status", "success");
+            friendInfo.put("date", ObtainData.getData());
+            getNameAndHead(friendInfo);
+            getFriendContact(friendInfo);
+        }catch (SQLException e){
+
+        }
+
     }
 
     private void getNameAndHead(JSONObject friendInfo) throws SQLException {
