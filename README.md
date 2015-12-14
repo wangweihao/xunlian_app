@@ -1,6 +1,4 @@
 # xunlian_app
-refactoring xunlian_app server
-
 讯联 APP 服务端 （重构版本）
 
 服务端整体分为主服务器和消息服务器
