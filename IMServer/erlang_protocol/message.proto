@@ -1,0 +1,35 @@
+// 客户端登录发送
+//mark = 1
+message Login{
+    required int32 mark = 1;
+    required string selfaccount = 2;
+    required int32 id = 3;
+}
+
+//mark = 2
+message SendMsg{
+    required int32 mark = 1;
+    required string friendaccount = 2;
+    required string msg = 3;
+    required string time = 4;
+    required int32 id = 5;
+}
+
+
+//mark = 3 
+message ACK{
+    required int32 mark = 1;
+    required int32 msgid = 2;
+}
+
+//mark = 4
+message Quit{
+    required int32 mark = 1;
+}
+
+//心跳包 mark = 5
+message KeepAlive{
+    required int32 mark = 1;
+    required bool isalive = 2;
+}
+

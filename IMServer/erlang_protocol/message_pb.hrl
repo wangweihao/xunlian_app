@@ -1,0 +1,5 @@
+-record(login, {mark, selfaccount, id}).
+-record(sendmsg, {mark, friendaccount, msg, time, id}).
+-record(ack, {mark, msgid}).
+-record(quit, {mark}).
+-record(keepalive, {mark, isalive}).
