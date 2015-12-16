@@ -1,4 +1,4 @@
-{application, dina,
+{application, im_server,
  [
   {description, ""},
   {vsn, "1"},
@@ -7,6 +7,6 @@
                   kernel,
                   stdlib
                  ]},
-  {mod, { dina_app, []}},
+  {mod, { im_server_app, []}},
   {env, []}
  ]}.
