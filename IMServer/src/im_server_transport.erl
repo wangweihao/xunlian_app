@@ -41,7 +41,7 @@ handle_cast(_Msg, State) ->
 handle_info({tcp, Socket, Data}, State) ->
     io:format("Pid:~p Socket:~p Data:~p~n", [self(), Socket, Data]),
     %%gen_tcp:send(Socket, term_to_binary("hello world")),
-    im_server_handle:decode_message(Data),
+    im_server_handle:decode_message(Socket, Data),
     {noreply, State};
 
 handle_info({tcp_closed, Socket}, State) ->

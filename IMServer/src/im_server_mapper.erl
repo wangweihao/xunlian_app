@@ -7,7 +7,7 @@
 %% ------------------------------------------------------------------
 
 -export([start_link/0]).
--export([lookup/2, insert/3]).
+-export([lookup/1, insert/2]).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -27,11 +27,11 @@
 start_link() ->
     gen_server:start_link({local, ?SERVER}, ?MODULE, [#state{}], []).
 
-lookup(Account, Pid) ->
-    gen_server:call(?MODULE, {lookup, Account, Pid}).
+lookup(Account) ->
+    gen_server:call(?MODULE, {lookup, Account}).
 
-insert(Account, Socket, Pid) ->
-    gen_server:call(?MODULE, {insert, Account, Socket, Pid}).
+insert(Account, Socket) ->
+    gen_server:call(?MODULE, {insert, Account, Socket}).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Definitions
@@ -44,21 +44,21 @@ init([State]) ->
               },
     {ok, State1}.
 
-handle_call({lookup, Account, Pid}, _From, State) ->
+handle_call({lookup, Account}, _From, State) ->
     case (catch ets:lookup(State#state.mapid, Account)) of
         [{_, Socket}] ->
-            Pid ! {Socket};
+            Socket;
         _  ->
-            Pid ! {error}
+            error
     end,
     {reply, ok, State};
 
-handle_call({insert, Account, Socket, Pid}, _From, State) ->
+handle_call({insert, Account, Socket}, _From, State) ->
     case (catch ets:insert(State#state.mapid, {Account, Socket})) of
         true ->
-            Pid ! {ok};
+            ok;
         _ ->
-            Pid ! {error}
+            error
     end,
     {reply, ok, State};
 
