@@ -1,13 +1,13 @@
--module(im_server_transport).
+-module(im_server_handle).
 -behaviour(gen_server).
-
 -define(SERVER, ?MODULE).
 
 %% ------------------------------------------------------------------
 %% API Function Exports
 %% ------------------------------------------------------------------
 
--export([start_link/0]).
+-export([start_link/1]).
+-export([decode_message/2]).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -20,16 +20,22 @@
 %% API Function Definitions
 %% ------------------------------------------------------------------
 
-start_link() ->
-    gen_server:start_link(?MODULE, [], []).
+start_link(Ref) ->
+    gen_server:start_link({local, ref}, ?MODULE, [], []).
+
+decode_message(Ref, Message) ->
+    gen_server:call(Ref, {decode, Message}).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Definitions
 %% ------------------------------------------------------------------
 
 init(Args) ->
-    im_server_handle:start_link(pid_to_list(self())),
     {ok, Args}.
+
+handle_call({decode, Message}, _From, State) ->
+    io:format("解码~n"),
+    {reply, ok, State};
 
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
@@ -37,25 +43,7 @@ handle_call(_Request, _From, State) ->
 handle_cast(_Msg, State) ->
     {noreply, State}.
 
-handle_info({tcp, Socket, Data}, State) ->
-    io:format("Pid:~p Socket:~p Data:~p~n", [self(), Socket, Data]),
-    gen_tcp:send(Socket, term_to_binary("hello world")),
-    im_server_handle:decode_message(pid_to_list(self()), Data),
-    {noreply, State};
-
-handle_info({tcp_closed, Socket}, State) ->
-    io:format("tcp_close...~n"),
-    gen_tcp:close(Socket),
-    %% 用户关闭连接则退出 transport 进程和 handle 进程
-    exit(normal),
-    {noreply, State};
-
-handle_info({'EXIT', _, _}, State) ->
-    io:format("handle_info exit...~n"),
-    {noreply, State};
-
-handle_info(_, State) ->
-    io:format("handle_info other.......~n"),
+handle_info(_Info, State) ->
     {noreply, State}.
 
 terminate(_Reason, _State) ->

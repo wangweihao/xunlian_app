@@ -27,6 +27,7 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
+    MapId = ets:new(mapper, [set]),
     {ok, Args}.
 
 handle_call(_Request, _From, State) ->
