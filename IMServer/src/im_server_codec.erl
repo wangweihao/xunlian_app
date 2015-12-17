@@ -1,6 +1,6 @@
 -module(im_server_codec).
 
--export([encode/1]).
+-export([encode/4]).
 -export([decode/2]).
 
 -include("./protobuf/message_pb.hrl").
@@ -32,9 +32,11 @@ decode(Socket, Message) ->
         % mark 2 聊天消息
         2 ->
             case (message_pb:decode_sendmsg(Protobuf)) of
-                {sendmsg, Account, _Msg, _Time, _Id} ->
+                {sendmsg, Account, Msg, Time, Id} ->
                     case (im_server_mapper:lookup(Account)) of
                         Socket ->
+                            SMsg = encode(Account, Msg, Time, Id),
+                            gen_tcp:send(Socket, SMsg),
                             ok;
                         error  ->
                             ok
@@ -45,19 +47,19 @@ decode(Socket, Message) ->
             end,
             ok;
         _ ->
-            gen_tcp:send(Socket, "hello world"),
+            gen_tcp:send(Socket, "hello world\n"),
             error
     end,
     %% 3.根据 mark 查询 ets 表
     %% 4.接受查询结果，组装成 protocol buffer
     %% 5.发送给好友
     io:format("解码:~p~n", [Message]),
-    encode(Message), 
     io:format("发送给好友~n"),
-    sleep(5000).
+    sleep(1000).
 
-encode(_Message) ->
-    ok.
+encode(Account, Msg, Time, Id) ->
+    SMsg = #sendmsg{friendaccount = Account, msg = Msg, time = Time, id = Id},
+    SMsg.
 
 sleep(T) ->
     receive
