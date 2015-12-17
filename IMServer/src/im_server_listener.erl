@@ -33,10 +33,11 @@ start_link(Parent, Port, Module)
 acceptor_init(Parent, Port, Module) ->
     %% 变为系统进程，避免接受到 kill 信号导致终止
     process_flag(trap_exit, true),
+    im_server_handle:start_link(),
     State = #state{
         parent = Parent,
         port = Port,
-        module = Module 
+        module = Module
         },
     error_logger:info_msg("listening on port ~p~n", [Port]),
     case (catch do_init(State)) of

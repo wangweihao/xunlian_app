@@ -6,8 +6,8 @@
 %% API Function Exports
 %% ------------------------------------------------------------------
 
--export([start_link/1]).
--export([decode_message/2]).
+-export([start_link/0]).
+-export([decode_message/1]).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -20,11 +20,11 @@
 %% API Function Definitions
 %% ------------------------------------------------------------------
 
-start_link(Ref) ->
-    gen_server:start_link({local, ref}, ?MODULE, [], []).
+start_link() ->
+    gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
-decode_message(Ref, Message) ->
-    gen_server:call(Ref, {decode, Message}).
+decode_message(Message) ->
+    gen_server:call(?MODULE, {decode, Message}).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Definitions
@@ -34,9 +34,8 @@ init(Args) ->
     {ok, Args}.
 
 handle_call({decode, Message}, _From, State) ->
-    io:format("解码~n"),
+    spawn_link(im_server_codec, encode, [Message]),
     {reply, ok, State};
-
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
 

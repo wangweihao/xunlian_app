@@ -28,8 +28,9 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
-    im_server_handle:start_link(pid_to_list(self())),
+    im_server_handle:start_link(),
     {ok, Args}.
+
 
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
@@ -39,8 +40,8 @@ handle_cast(_Msg, State) ->
 
 handle_info({tcp, Socket, Data}, State) ->
     io:format("Pid:~p Socket:~p Data:~p~n", [self(), Socket, Data]),
-    gen_tcp:send(Socket, term_to_binary("hello world")),
-    im_server_handle:decode_message(pid_to_list(self()), Data),
+    %%gen_tcp:send(Socket, term_to_binary("hello world")),
+    im_server_handle:decode_message(Data),
     {noreply, State};
 
 handle_info({tcp_closed, Socket}, State) ->
