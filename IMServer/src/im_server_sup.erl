@@ -9,33 +9,47 @@
 %% Supervisor callbacks
 -export([init/1]).
 
--define(MAX_RESTART,    10).
--define(MAX_TIME,      60).
--define(LISTEN_PORT, 9090).
-
 %% ===================================================================
 %% API functions
 %% ===================================================================
 
 start_link() ->
-    supervisor:start_link({local, ?MODULE}, ?MODULE, [?LISTEN_PORT, transport]).
+    supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 %% ===================================================================
 %% Supervisor callbacks
 %% ===================================================================
 
-init([Port, Module]) ->
-    {ok, 
-     { {one_for_one, ?MAX_RESTART, ?MAX_TIME}, 
+init([]) ->
+    {ok, { {one_for_one, 5, 10}, 
            [
-            {im_server_acceptor,
-             {im_server_acceptor, start_link, [self(), Port, Module]},
-             permanent,
-             2000,
-             worker,
-             [im_server_acceptor]
-            }    
+            %% 监听进程
+            {
+                im_server_listener, {im_server_listener, start_link, []},
+                temporary,
+                brutal_kill,
+                worker,
+                [im_server_listener]
+            },
+
+            %% 处理消息进程督程
+            {
+                im_server_transport_sup, {im_server_transport_sup, start_link, []},
+                temporary,
+                brutal_kill,
+                supervisor,
+                [im_server_transport_sup]
+            },
+
+            %% 存储用户 Socket 映射进程
+            {
+                im_server_mapper, {im_server_mapper, start_link, []},
+                temporary,
+                brutal_kill,
+                worker,
+                [im_server_mapper]
+            } 
            ]
-     } 
-    }.
+         
+         } }.
 
