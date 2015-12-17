@@ -37,7 +37,7 @@ insert(Account, Socket, Pid) ->
 %% gen_server Function Definitions
 %% ------------------------------------------------------------------
 
-init(State) ->
+init([State]) ->
     MapId = ets:new(mapper, [set]),
     State1 = State#state{
                 mapid = MapId
