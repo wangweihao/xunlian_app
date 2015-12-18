@@ -53,12 +53,13 @@ acceptor_init(Parent, Port, Module) ->
 
 do_init(State) ->
     Options = [ binary,
-               %% {packet, 2},
-                {packet, 0},
+                {packet, 2},
+               %% {packet, 0},
                {reuseaddr, true},
                {backlog, 1024},
-               %%{active, false}
-               {active, true}
+               %% {active, false}
+               %% {active, true}
+               {active, once}
               ],
     register(listener, self()),
     case gen_tcp:listen(State#state.port, Options) of
@@ -86,6 +87,8 @@ acceptor_loop(State) ->
 
 %% 注意连接断开时进程退出，否则大量进程占用资源
 handle_connection(State, Socket) ->
+    inet:setopts(Socket, [{packet, 2}, binary, 
+                          {nodelay, true}, {active, once}]),
     io:format("receive connection socket:~p~n", [Socket]),
     io:format("create handle message process ~n"),
     {ok, Pid} = (State#state.module):start_link(),

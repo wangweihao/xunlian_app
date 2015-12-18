@@ -42,20 +42,28 @@ init([State]) ->
     State1 = State#state{
                 mapid = MapId
               },
+    io:format("create mappmer success~n"),
     {ok, State1}.
 
 handle_call({lookup, Account}, _From, State) ->
-    case (catch ets:lookup(State#state.mapid, Account)) of
-        [{_, Socket}] ->
-            Socket;
-        _  ->
-            error
-    end,
-    {reply, ok, State};
+    io:format("data-+-+-+-+-+~p~n", [ets:tab2list(State#state.mapid)]),
+    io:format("~p loop up data ~p~n", [?MODULE, Account]),
+    Reply = case (catch (ets:lookup(State#state.mapid, Account))) of
+                    [{_, Socket}] ->
+                        io:format("lookup success~n"),
+                            Socket;
+                    []  ->
+                        io:format("lookup failure~n"),
+                            error
+                    end,
+    io:format("+++++++++++~p~n", [Reply]),
+    {reply, Reply, State};
 
 handle_call({insert, Account, Socket}, _From, State) ->
+    io:format("~p insert date ~p,~p", [?MODULE, Account, Socket]),
     case (catch ets:insert(State#state.mapid, {Account, Socket})) of
         true ->
+            io:format("insert success~n"),
             ok;
         _ ->
             error
