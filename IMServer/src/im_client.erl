@@ -28,13 +28,16 @@ client_start(Account, FriendAccount) ->
     sleep(2000),
     io:format("recv message...~n"),
     receive
-        {tcp, Socket, Bin} ->
+        {tcp, Socket, EBin} ->
             io:format("client recv message~n"),
-            io:format("Message:~p~n", [Bin]),
-            R = message_pb:decode_sendmsg(Bin),
+            io:format("Message:~p~n", [EBin]),
+            R = message_pb:decode_sendmsg(EBin),
             io:format("Message:~p~n", [R]),
             gen_tcp:close(Socket),
-            io:format("recv message success...~n")
+            io:format("recv message success...~n");
+        E -> 
+            io:format("匹配失败...~n"),
+            io:format("~p~n", [E])
     end.
 
 sleep(T) ->
