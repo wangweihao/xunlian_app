@@ -20,7 +20,7 @@ decode(Socket, Message) ->
                     case (im_server_mapper:insert(SelfAccount, Socket)) of
                         ok     ->
                             io:format("----------- insert date --------------~n"),
-                            io:format("account:~p, socket:~p~n", [SelfAccount, Socket]),
+                            error_logger:info_msg("Account:~p, Socket:~p~n", [SelfAccount, Socket]),
                             ok;
                         error  ->
                             ok
@@ -36,18 +36,18 @@ decode(Socket, Message) ->
                 {sendmsg, Account, Msg, Time, Id} ->
                     %% 3.根据 mark 查询 ets 表
                     case (im_server_mapper:lookup(Account)) of
+                        error  ->
+                            error_logger:info_msg("lookup Account:~p~n error", [Account]);
                         FSocket ->
                             %% 4.接受查询结果，组装成 protocol buffer
                             SMsg = encode(Account, Msg, Time, Id),
                             %% 5.发送给好友
                             case gen_tcp:send(FSocket, SMsg) of
                                 ok ->
-                                    io:format("send friend message success~n");
+                                    error_logger:info_msg("send friend message success~n");
                                 {error, Reason} ->
-                                    io:format("send friend message error:~p~n", Reason)
-                            end;
-                        error  ->
-                            ok
+                                    error_logger:info_msg("send friend message error:~p~n", [Reason])
+                            end
                     end,
                     ok;
                 _ ->
@@ -58,8 +58,7 @@ decode(Socket, Message) ->
             io:format("------------------- failure ---------------------~n"),
             gen_tcp:send(Socket, "hello world\n"),
             error
-    end,
-    sleep(500).
+    end.
 
 encode(Account, Msg, Time, Id) ->
     SMsg = #sendmsg{friendaccount = Account, msg = Msg, time = Time, id = Id},

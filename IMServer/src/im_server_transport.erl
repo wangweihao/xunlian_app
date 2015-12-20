@@ -40,11 +40,12 @@ handle_cast(_Msg, State) ->
 
 handle_info({tcp, Socket, Data}, State) ->
     inet:setopts(Socket, [{active, once}]),
-    io:format("Pid:~p Socket:~p Data:~p~n", [self(), Socket, Data]),
-    %%gen_tcp:send(Socket, term_to_binary("hello world")),
+    error_logger:info_msg("receive Message => Pid:~p Socket:~p, Data:~p~n", [self(), Socket, Data]),
     im_server_handle:decode_message(Socket, Data),
     {noreply, State};
 
+%% 客户端断开连接需要做一些处理
+%% 1.删除 ets 表中的 key-value
 handle_info({tcp_closed, Socket}, State) ->
     io:format("tcp_close...~n"),
     gen_tcp:close(Socket),
@@ -53,11 +54,11 @@ handle_info({tcp_closed, Socket}, State) ->
     {noreply, State};
 
 handle_info({'EXIT', _, _}, State) ->
-    io:format("handle_info exit...~n"),
+    error_logger:info_msg("handle_info exit ~n"),
     {noreply, State};
 
 handle_info(_, State) ->
-    io:format("handle_info other.......~n"),
+    error_logger:info_msg("handle_info other ~n"),
     {noreply, State}.
 
 terminate(_Reason, _State) ->

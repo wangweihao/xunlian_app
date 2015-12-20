@@ -89,15 +89,10 @@ acceptor_loop(State) ->
 handle_connection(State, Socket) ->
     inet:setopts(Socket, [{packet, 2}, binary, 
                           {nodelay, true}, {active, once}]),
-    io:format("receive connection socket:~p~n", [Socket]),
-    io:format("create handle message process ~n"),
+    error_logger:info_msg("receive connection socket:~p~n", [Socket]),
+    error_logger:info_msg("create handle message process ~n"),
     {ok, Pid} = (State#state.module):start_link(),
-    io:format("Pid:~p~n", [Pid]),
     ok = gen_tcp:controlling_process(Socket, Pid).
-    %% 创建一个收发消息的进程
-    %%{ok, Pid} = im_server_app:start_handle(State#state.port),
-    %%ok = gen_tcp:controlling_process(Socket, Pid).
-    %% 创建一个编码/解码的进程
 
 
 handle_error(timeout) ->

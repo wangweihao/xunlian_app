@@ -23,9 +23,6 @@
 start_link() ->
     gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
-decode_message(Socket, Message) ->
-    gen_server:call(?MODULE, {decode, Socket, Message}).
-
 %% ------------------------------------------------------------------
 %% gen_server Function Definitions
 %% ------------------------------------------------------------------
@@ -55,4 +52,7 @@ code_change(_OldVsn, State, _Extra) ->
 %% ------------------------------------------------------------------
 %% Internal Function Definitions
 %% ------------------------------------------------------------------
+
+decode_message(Socket, Message) ->
+    gen_server:call(?MODULE, {decode, Socket, Message}).
 
