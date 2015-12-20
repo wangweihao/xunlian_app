@@ -8,6 +8,8 @@ client_start(Account, FriendAccount) ->
     Msg = "hello world",
     {ok, Socket} = gen_tcp:connect("127.0.0.1", 9090,
                                   [binary, {packet, 2}]),
+    %%{ok, Socket} = gen_tcp:connect("121.42.210.40", 9090,
+    %%                              [binary, {packet, 2}]),
     LMsg = #login{selfaccount = Account, id = 100},
     LBin = message_pb:encode_login(LMsg),
     LType = 1,

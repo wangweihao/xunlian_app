@@ -3,3 +3,4 @@
 -record(ack, {msgid}).
 -record(quit, {quit}).
 -record(keepalive, {isalive}).
+-record(head, {mark, version}).

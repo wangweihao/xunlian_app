@@ -47,7 +47,8 @@ handle_info({tcp, Socket, Data}, State) ->
 %% 客户端断开连接需要做一些处理
 %% 1.删除 ets 表中的 key-value
 handle_info({tcp_closed, Socket}, State) ->
-    io:format("tcp_close...~n"),
+    io:format("tcp_close...~p~n", [Socket]),
+    im_server_mapper:delete_quit(Socket),
     gen_tcp:close(Socket),
     %% 用户关闭连接则退出 transport 进程和 handle 进程
     exit(normal),

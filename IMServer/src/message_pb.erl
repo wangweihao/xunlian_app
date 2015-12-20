@@ -2,10 +2,13 @@
 
 -module(message_pb).
 
--export([encode_keepalive/1, decode_keepalive/1,
-	 encode_quit/1, decode_quit/1, encode_ack/1,
-	 decode_ack/1, encode_sendmsg/1, decode_sendmsg/1,
-	 encode_login/1, decode_login/1]).
+-export([encode_head/1, decode_head/1,
+	 encode_keepalive/1, decode_keepalive/1, encode_quit/1,
+	 decode_quit/1, encode_ack/1, decode_ack/1,
+	 encode_sendmsg/1, decode_sendmsg/1, encode_login/1,
+	 decode_login/1]).
+
+-record(head, {mark, version}).
 
 -record(keepalive, {isalive}).
 
@@ -16,6 +19,9 @@
 -record(sendmsg, {friendaccount, msg, time, id}).
 
 -record(login, {selfaccount, id}).
+
+encode_head(Record) when is_record(Record, head) ->
+    encode(head, Record).
 
 encode_keepalive(Record)
     when is_record(Record, keepalive) ->
@@ -59,6 +65,12 @@ encode(quit, Record) ->
 encode(keepalive, Record) ->
     iolist_to_binary([pack(1, required,
 			   with_default(Record#keepalive.isalive, none), bool,
+			   [])]);
+encode(head, Record) ->
+    iolist_to_binary([pack(1, required,
+			   with_default(Record#head.mark, none), int32, []),
+		      pack(3, required,
+			   with_default(Record#head.version, none), int32,
 			   [])]).
 
 with_default(undefined, none) -> undefined;
@@ -79,6 +91,9 @@ pack(FNum, _, Data, _, _) when is_tuple(Data) ->
     protobuffs:encode(FNum, encode(RecName, Data), bytes);
 pack(FNum, _, Data, Type, _) ->
     protobuffs:encode(FNum, Data, Type).
+
+decode_head(Bytes) when is_binary(Bytes) ->
+    decode(head, Bytes).
 
 decode_keepalive(Bytes) when is_binary(Bytes) ->
     decode(keepalive, Bytes).
@@ -116,7 +131,11 @@ decode(quit, Bytes) when is_binary(Bytes) ->
 decode(keepalive, Bytes) when is_binary(Bytes) ->
     Types = [{1, isalive, bool, []}],
     Decoded = decode(Bytes, Types, []),
-    to_record(keepalive, Decoded).
+    to_record(keepalive, Decoded);
+decode(head, Bytes) when is_binary(Bytes) ->
+    Types = [{3, version, int32, []}, {1, mark, int32, []}],
+    Decoded = decode(Bytes, Types, []),
+    to_record(head, Decoded).
 
 decode(<<>>, _, Acc) -> Acc;
 decode(Bytes, Types, Acc) ->
@@ -189,7 +208,13 @@ to_record(keepalive, DecodedTuples) ->
 			set_record_field(record_info(fields, keepalive), Record,
 					 Name, Val)
 		end,
-		#keepalive{}, DecodedTuples).
+		#keepalive{}, DecodedTuples);
+to_record(head, DecodedTuples) ->
+    lists:foldl(fun ({_FNum, Name, Val}, Record) ->
+			set_record_field(record_info(fields, head), Record,
+					 Name, Val)
+		end,
+		#head{}, DecodedTuples).
 
 set_record_field(Fields, Record, Field, Value) ->
     Index = list_index(Field, Fields),

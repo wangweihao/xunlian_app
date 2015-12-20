@@ -10,6 +10,7 @@
 -export([lookup/1]).
 -export([insert/2]).
 -export([delete/1]).
+-export([delete_quit/1]).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -42,6 +43,14 @@ init([State]) ->
     error_logger:info_msg("create mappmer success~n"),
     {ok, State1}.
 
+%% 客户端退出时，删除数据
+handle_call({delete_quit, Socket}, _From, State) ->
+    error_logger:info_msg("Socket:~p quit ~p~n", [?MODULE, Socket]),
+    [{_, Account}] = ets:lookup(State#state.mapid, Socket),
+    ets:delete(State#state.mapid, Account),
+    ets:delete(State#state.mapid, Socket),
+    {reply, ok, State};
+
 %% 用户退出要从 ets 表中删除数据
 handle_call({delete, Account}, _From, State) ->
     error_logger:info_msg("Account:~p quit ~p~n", [?MODULE, Account]),
@@ -72,6 +81,7 @@ handle_call({insert, Account, Socket}, _From, State) ->
     %%io:format("~p insert date ~p,~p", [?MODULE, Account, Socket]),
     case (catch ets:insert(State#state.mapid, {Account, Socket})) of
         true ->
+            ets:insert(State#state.mapid, {Socket, Account}),
             io:format("insert success~n"),
             ok;
         _ ->
@@ -106,3 +116,6 @@ insert(Account, Socket) ->
 
 delete(Account) ->
     gen_server:call(?MODULE, {delete, Account}).
+
+delete_quit(Socket) ->
+    gen_server:call(?MODULE, {delete_quit, Socket}).
