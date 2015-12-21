@@ -13,9 +13,10 @@ client_start(Account, FriendAccount) ->
     LMsg = #login{selfaccount = Account, id = 100},
     LBin = message_pb:encode_login(LMsg),
     LType = 1,
+    LVersion = 1,
     %% erlang client 若指明 {packet,2} 则不用自己封装长度
     %LSBin = <<LSize:16, LType:8, LBin/bitstring>>,
-    LL = <<LType:8, LBin/bitstring>>,
+    LL = <<LVersion:8, LType:8, LBin/bitstring>>,
     gen_tcp:send(Socket, LL), 
 
     sleep(2000),
@@ -24,7 +25,8 @@ client_start(Account, FriendAccount) ->
     SMsg = #sendmsg{friendaccount = FriendAccount, msg = Msg, time = "2015", id = 1000},
     Bin = message_pb:encode_sendmsg(SMsg),
     Type = 2,
-    SS = <<Type:8, Bin/bitstring>>,
+    Version = 1,
+    SS = <<Version:8, Type:8, Bin/bitstring>>,
     gen_tcp:send(Socket, SS),
     io:format("send message success...~n"),
     sleep(2000),
