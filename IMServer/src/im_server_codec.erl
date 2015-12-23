@@ -11,6 +11,9 @@ decode(Socket, Message) ->
     %% 1.获取数据的类型
     %% 版本号代表协议版本，若更新协议版本则对应不同的解析协议
     <<Version:8/bitstring, Mark:8/bitstring, Protobuf/bitstring>> = Message,
+    io:format("+++++++++++++++++++++++++++++++++++++++++~n"),
+    io:format("version:~p mark:~p protocolbuf:~p ~n", [Version, Mark, Protobuf]),
+    io:format("+++++++++++++++++++++++++++++++++++++++++~n"),
     io:format("--------------version:~p--------------~n", [Version]),
     %% 2.根据 Mark 提取 protocol buffer 数据
     io:format("------------- make:~p ----------------~n", [Mark]),
@@ -65,7 +68,10 @@ decode(Socket, Message) ->
 encode(Account, Msg, Time, Id) ->
     SMsg = #sendmsg{friendaccount = Account, msg = Msg, time = Time, id = Id},
     M = message_pb:encode_sendmsg(SMsg),
-    M.
+    Version = 1,
+    Type = 2,
+    RMsg = <<Version:8, Type:8, M/bitstring>>,
+    RMsg.
 
 sleep(T) ->
     receive
