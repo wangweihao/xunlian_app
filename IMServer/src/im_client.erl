@@ -35,7 +35,8 @@ client_start(Account, FriendAccount) ->
         {tcp, Socket, EBin} ->
             io:format("client recv message~n"),
             io:format("Message:~p~n", [EBin]),
-            R = message_pb:decode_sendmsg(EBin),
+            <<MVersion:8, MType:8, MBin/bitstring>> = EBin,
+            R = message_pb:decode_sendmsg(MBin),
             io:format("Message:~p~n", [R]),
             gen_tcp:close(Socket),
             io:format("recv message success...~n");
