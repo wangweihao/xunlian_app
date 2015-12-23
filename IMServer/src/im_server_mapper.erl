@@ -11,6 +11,8 @@
 -export([insert/2]).
 -export([delete/1]).
 -export([delete_quit/1]).
+-export([offline_message/1]).
+-export([add_offline_message/2]).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -20,7 +22,8 @@
          terminate/2, code_change/3]).
 
 -record(state, {
-            mapid
+            mapid,
+            offlineid
          }).
 
 %% ------------------------------------------------------------------
@@ -36,12 +39,40 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init([State]) ->
+    %% 存放连接用户信息
     MapId = ets:new(mapper, [set]),
+    %% 存放离线信息，当用户登录时，该信息被发送并删除
+    MapOffline = ets:new(mapper_offline, [bag]),
+
     State1 = State#state{
-                mapid = MapId
+                mapid = MapId,
+                offlineid = MapOffline
               },
     error_logger:info_msg("create mappmer success~n"),
     {ok, State1}.
+
+%% 添加用户的离线消息
+handle_call({add_offline_message, Account, Message}, _From, State) ->
+    error_logger:info_msg("Account:~p offline Message:~p~n", [Account, Message]),
+    Reply = case(catch (ets:insert(State#state.offlineid, {Account, Message}))) of
+                true ->
+                    ok;
+                _    ->
+                    error
+            end,
+    {reply, Reply, State};
+
+%% 客户端登录时，发送离线消息
+handle_call({offline, Account}, _From, State) ->
+    error_logger:info_msg("Account:~p offline message~n", [Account]),
+    Reply = case(catch (ets:lookup(State#state.offlineid, Account))) of
+                [] ->
+                    [];
+                OfflineMsg  ->
+                    OfflineMsg
+            end,
+    catch (ets:delete(State#state.offlineid, Account)),
+    {reply, Reply, State};
 
 %% 客户端退出时，删除数据
 handle_call({delete_quit, Socket}, _From, State) ->
@@ -107,6 +138,12 @@ code_change(_OldVsn, State, _Extra) ->
 %% ------------------------------------------------------------------
 %% Internal Function Definitions
 %% ------------------------------------------------------------------
+
+add_offline_message(Account, Message) ->
+    gen_server:call(?MODULE, {add_offline_message, Account, Message}).
+
+offline_message(Account) ->
+    gen_server:call(?MODULE, {offline, Account}).
 
 lookup(Account) ->
     gen_server:call(?MODULE, {lookup, Account}).

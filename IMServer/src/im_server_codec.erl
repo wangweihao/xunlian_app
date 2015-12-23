@@ -26,6 +26,12 @@ decode(Socket, Message) ->
                         ok     ->
                             io:format("----------- insert date --------------~n"),
                             error_logger:info_msg("Account:~p, Socket:~p~n", [SelfAccount, Socket]),
+                            case im_server_mapper:offline_message(SelfAccount) of
+                                [] ->
+                                    io:format("无离线消息~n");
+                                OfflineMessage ->
+                                    io:format("离线消息~p~n", [OfflineMessage])
+                            end,
                             ok;
                         error  ->
                             ok
@@ -42,7 +48,8 @@ decode(Socket, Message) ->
                     %% 3.根据 mark 查询 ets 表
                     case (im_server_mapper:lookup(Account)) of
                         error  ->
-                            error_logger:info_msg("lookup Account:~p~n error", [Account]);
+                            error_logger:info_msg("对方不在线:~p error, 保存离线消息:~p~n", [Account, Msg]),
+                            im_server_mapper:add_offline_message(Account, Msg);
                         FSocket ->
                             %% 4.接受查询结果，组装成 protocol buffer
                             SMsg = encode(Account, Msg, Time, Id),
