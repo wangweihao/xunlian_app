@@ -11,14 +11,12 @@ decode(Socket, Message) ->
     %% 1.获取数据的类型
     %% 版本号代表协议版本，若更新协议版本则对应不同的解析协议
     <<Version:8/bitstring, Mark:8/bitstring, Protobuf/bitstring>> = Message,
-    io:format("+++++++++++++++++++++++++++++++++++++++++~n"),
     io:format("version:~p mark:~p protocolbuf:~p ~n", [Version, Mark, Protobuf]),
-    io:format("+++++++++++++++++++++++++++++++++++++++++~n"),
     io:format("--------------version:~p--------------~n", [Version]),
     %% 2.根据 Mark 提取 protocol buffer 数据
     io:format("------------- make:~p ----------------~n", [Mark]),
     case Mark of 
-        % mark 1 登录，向数据库里插入信息
+        %% mark 1 登录，向数据库里插入信息
         <<1>> ->
             case (message_pb:decode_login(Protobuf)) of
                 {login, SelfAccount, _Id} ->
@@ -41,7 +39,8 @@ decode(Socket, Message) ->
                     error
             end,
             ok;
-        % mark 2 聊天消息
+        %% mark 2 聊天消息
+        %% 后面需要增加 Ack 响应
         <<2>> ->
             case (message_pb:decode_sendmsg(Protobuf)) of
                 {sendmsg, Account, Msg, Time, Id} ->
