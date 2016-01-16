@@ -65,17 +65,17 @@ int main(int argc, char *argv[])
         //mark4 修改密码 yes
         //strcpy(buffer, "{\"mark\":4,\"account\":\"1111\", \"secret\":\"weihao\"}");
         //mark5 修改资料 yes
-        //strcpy(buffer, "{\"mark\":5,\"account\":\"1111\",\"name\":\"hahahahaha\", \"head\":\"*********\"}");
+        strcpy(buffer, "{\"mark\":5,\"account\":\"zhuchen\",\"name\":\"hahahahaha\", \"head\":\"1\"}");
         //mark6 更新联系
         //注意返回为空也算失败
         //update数据，并且更新isUpdate数值
-        //strcpy(buffer, "{\"mark\":6,\"account\":\"3333\", info:{\"name\":\"acdacd\", \"head\":\"asdasd\"}, update:[{\"type\":1, \"content\":\"123123123123\"}]}");
+        //strcpy(buffer, "{\"mark\":6,\"account\":\"3333\", info:{\"name\":\"acdacd\", \"head\":\"1\"}, update:[{\"type\":1, \"content\":\"123123123123\"}]}");
         //mark7 本地没有数据，获得所有的数据 yes
         //strcpy(buffer, "{\"mark\":7,\"account\":\"2222\"}");
         //mark8 本地有数据，获得需要更新的数据 yes
         //strcpy(buffer, "{\"mark\":8,\"account\":\"4444\"}");
         //mark9 yes 获取好友信息
-        strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"zahuchen\", \"theKey\":\"478478\"}");
+        //strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"zahuchen\", \"theKey\":\"478478\"}");
         //mark10 借用mark11生成的二维码的信息组成新的json请求
         //strcpy(buffer, "{\"mark\":10, \"account\":\"1111\", \"friendaccount\":\"5555\", \"qid\":8}");
         //mark11 yes 新建二维码
@@ -84,8 +84,8 @@ int main(int argc, char *argv[])
         //strcpy(buffer, "{\"mark\":12,\"account\":\"2222\", \"secret\":\"2222\"}");
         //mark13 yes 删除好友   漏洞:好友不存在也能删除
         //strcpy(buffer, "{\"mark\":13,\"account\":\"003308\", \"friendaccount\":\"1111\"}");
-        //mark14 一次性录入数据 需要改进，若用户没有填写某一信息，则不网数据库写记录
-        //strcpy(buffer, "{\"mark\":14, \"account\":\"8888\", \"personInfo\":{\"name\":\"123123\", \"head\":\"123123\"},\"phoneInfo\":{\"personPhoneNumber\":\"123123\", \"homePhoneNumber\":\"123123\", \"workPhoneNumber\":\"123123\"},emailInfo:{\"personMailNumber\":\"123123\", \"homeMailNumber\":\"123123\", \"workMailNumber\":\"123123\"},\"qqNumber\":\"123123\", \"weiboNumber\":\"123123\"}");
+        //mark14 一次性录入数据 需要改进，若用户没有填写某一信息，则不往数据库写记录
+        //strcpy(buffer, "{\"mark\":14, \"account\":\"8888\", \"personInfo\":{\"name\":\"123123\", \"head\":\"1\"},\"phoneInfo\":{\"personPhoneNumber\":\"123123\", \"homePhoneNumber\":\"123123\", \"workPhoneNumber\":\"123123\"},emailInfo:{\"personMailNumber\":\"123123\", \"homeMailNumber\":\"123123\", \"workMailNumber\":\"123123\"},\"qqNumber\":\"123123\", \"weiboNumber\":\"123123\"}");
         //mark15 添加好友
         //strcpy(buffer, "{\"mark\":15, \"account\":\"1101\", \"friendaccount\":\"1102\"}");
         //mark 16 设置 Key 值

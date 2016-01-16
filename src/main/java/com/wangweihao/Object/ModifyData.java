@@ -34,7 +34,7 @@ public class ModifyData extends AccessDatabase {
     public void setDerivedClassOtherMeber(){
         jsonObject = new JSONObject(RequestString);
         Name = new String(jsonObject.getString("name"));
-        Head = new String(jsonObject.getString("head"));
+        Head = jsonObject.getInt("head");
     }
 
     @Override
@@ -51,5 +51,5 @@ public class ModifyData extends AccessDatabase {
     }
 
     private String Name;
-    private String Head;
+    private int Head;
 }

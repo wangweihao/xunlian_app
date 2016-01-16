@@ -76,7 +76,7 @@ public class ObtainNewContactsData extends AccessDatabase {
         resultSet = preparedStatement.executeQuery();
         resultSet.next();
         oneFriend.put("name", resultSet.getString(1));
-        oneFriend.put("head", resultSet.getBytes(2));
+        oneFriend.put("head", resultSet.getInt(2));
         return oneFriend;
     }
 

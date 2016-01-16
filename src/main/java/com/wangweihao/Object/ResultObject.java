@@ -5,7 +5,7 @@ package com.wangweihao.Object;
  */
 public class ResultObject {
     private String name;
-    private String head;
+    private int head;
     private String personNumber;
     private String workPhoneNumber;
     private String homePhoneNumber;
@@ -26,7 +26,7 @@ public class ResultObject {
         return name;
     }
 
-    public String getHead() {
+    public int getHead() {
         return head;
     }
 
@@ -74,7 +74,7 @@ public class ResultObject {
         this.name = name;
     }
 
-    public void setHead(String head) {
+    public void setHead(int head) {
         this.head = head;
     }
 

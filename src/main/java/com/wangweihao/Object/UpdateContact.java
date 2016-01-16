@@ -46,7 +46,7 @@ public class UpdateContact extends AccessDatabase {
         JSONObject reqJson = new JSONObject(RequestString);
         JSONObject infoJson = reqJson.getJSONObject("info");
         name = new String(infoJson.getString("name"));
-        head = new String(infoJson.getString("head"));
+        head = infoJson.getInt("head");
         JSONArray contactArray = reqJson.getJSONArray("update");
         updateContact = new HashMap<Integer, String>();
         for(int i = 0; i < contactArray.length(); ++i){
@@ -58,16 +58,26 @@ public class UpdateContact extends AccessDatabase {
     }
 
     private void updateNameAndHead() throws SQLException {
-        if(name != "" || head != ""){
-            String updateNameAndHeadSql = "update UserInfo set name = \"" + name + "\", head = \""
-                    + head + "\" where uid = \"" + accountUid + "\";";
-            preparedStatement = DBPoolConnection.prepareStatement(updateNameAndHeadSql);
+        if(name != ""){
+            String updateNameSql = "update UserInfo set name = \"" + name + "\" where uid = \"" + accountUid + "\";";
+            preparedStatement = DBPoolConnection.prepareStatement(updateNameSql);
             try{
                 preparedStatement.executeUpdate();
             }catch (SQLException e){
                 e.printStackTrace();
-                System.out.println("updateNameAndHead error");
+                System.out.println("updateName error");
             }
+        }
+        if(head >=0 && head <= 6){
+            String updateHeadSql = "update UserInfo set head = \"" + head + "\" where uid = \"" + accountUid + "\";";
+            preparedStatement = DBPoolConnection.prepareStatement(updateHeadSql);
+            try{
+                preparedStatement.executeUpdate();
+            }catch (SQLException e){
+                e.printStackTrace();
+                System.out.println("updateHead error");
+            }
+
         }
     }
 
@@ -130,7 +140,7 @@ public class UpdateContact extends AccessDatabase {
     }
 
     private String name;
-    private String head;
+    private int head;
     private int accountUid;
     private int typeSum = 0;
     private ResultSet resultSet;

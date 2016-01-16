@@ -110,7 +110,7 @@ public class AddFriendSearchByAccount extends AccessDatabase {
         resultSet = preparedStatement.executeQuery();
         resultSet.next();
         friendInfo.put("name", resultSet.getString(1));
-        friendInfo.put("head", resultSet.getBytes(2));
+        friendInfo.put("head", resultSet.getInt(2));
     }
 
     private void getFriendContact(JSONObject friendInfo) throws SQLException {

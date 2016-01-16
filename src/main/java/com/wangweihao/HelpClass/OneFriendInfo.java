@@ -10,7 +10,7 @@ import java.util.TreeSet;
  */
 public class OneFriendInfo {
     private String name;
-    private byte[] head;
+    private int head;
 
     public void setName(String name) {
         this.name = name;
@@ -20,11 +20,11 @@ public class OneFriendInfo {
         return name;
     }
 
-    public void setHead(byte[] head) {
+    public void setHead(int head) {
         this.head = head;
     }
 
-    public byte[] getHead() {
+    public int getHead() {
         return head;
     }
 

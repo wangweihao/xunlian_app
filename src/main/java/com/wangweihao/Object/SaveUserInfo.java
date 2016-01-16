@@ -38,7 +38,7 @@ public class SaveUserInfo extends AccessDatabase{
         JSONObject emailInfoJson = jsonObject.getJSONObject("emailInfo");
         JSONObject phoneInfoJson = jsonObject.getJSONObject("phoneInfo");
         UserInfo.setName(personInfoJson.getString("name"));
-        UserInfo.setHead(personInfoJson.getString("head"));
+        UserInfo.setHead(personInfoJson.getInt("head"));
         UserInfo.setPersonNumber(phoneInfoJson.getString("personPhoneNumber"));
         UserInfo.setHomePhoneNumber(phoneInfoJson.getString("homePhoneNumber"));
         UserInfo.setWorkPhoneNumber(phoneInfoJson.getString("workPhoneNumber"));

@@ -85,7 +85,7 @@ public class ObtainAllContactsData extends AccessDatabase {
         resultSet = preparedStatement.executeQuery();
         resultSet.next();
         myFriend.setName(resultSet.getString(1));
-        myFriend.setHead(resultSet.getBytes(2));
+        myFriend.setHead(resultSet.getInt(2));
         String sqlGetFriendContact = "select type, content from UserContact where uid = \"" + userId + "\";";
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendContact);
         resultSet = preparedStatement.executeQuery();
