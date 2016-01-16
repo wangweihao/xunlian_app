@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         //mark1 检测帐号是否存在 yes
         //strcpy(buffer, "{\"mark\":1,\"account\":\"1111\"}");
         //mark2 帐号注册 yes
-        strcpy(buffer, "{\"mark\":2,\"account\":\"zhuchenguang\", \"secret\":\"123456789\"}");
+        //strcpy(buffer, "{\"mark\":2,\"account\":\"zhuchen\", \"secret\":\"123456789\"}");
         //mark3 验证密宝 yes
         //strcpy(buffer, "{\"mark\":3,\"account\":\"1111\", \"type\":\"1\", \"verify\":\"1888292929\"}");
         //mark4 修改密码 yes
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
         //mark8 本地有数据，获得需要更新的数据 yes
         //strcpy(buffer, "{\"mark\":8,\"account\":\"4444\"}");
         //mark9 yes 获取好友信息
-        //strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"1101111\", \"theKey\":\"wang\"}");
+        strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"zahuchen\", \"theKey\":\"478478\"}");
         //mark10 借用mark11生成的二维码的信息组成新的json请求
         //strcpy(buffer, "{\"mark\":10, \"account\":\"1111\", \"friendaccount\":\"5555\", \"qid\":8}");
         //mark11 yes 新建二维码

@@ -31,7 +31,7 @@
 #include <vector>
 #include <iostream>
 
-#define SOCKETMAX 5000
+#define SOCKETMAX 100
 char buffer[200];
 char recvbuffer[SOCKETMAX][200];
 
@@ -77,14 +77,14 @@ int main(int argc, char *argv[])
             exit(1);
         }
     }
-    for(int i = 0; i < SOCKETMAX; i++){
-        std::cout << i << std::endl;
-        std::cout << "create thread " << std::endl;
-        auto sv = std::make_shared<std::thread>(Func, sock_fd[i], i);
-        sv->detach();
-        std::cout << "--------------------+++" << std::endl;
-    }
-    std::cout << "hava fun" << std::endl;
+    //for(int i = 0; i < SOCKETMAX; i++){
+    //    std::cout << i << std::endl;
+    //    std::cout << "create thread " << std::endl;
+    //    auto sv = std::make_shared<std::thread>(Func, sock_fd[i], i);
+    //    sv->detach();
+    //    std::cout << "--------------------+++" << std::endl;
+    //}
+    //std::cout << "hava fun" << std::endl;
     sleep(100);
     //char buffer[1024];
     ////while(1){

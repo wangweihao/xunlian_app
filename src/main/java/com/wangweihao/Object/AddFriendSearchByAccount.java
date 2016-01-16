@@ -27,7 +27,6 @@ public class AddFriendSearchByAccount extends AccessDatabase {
 
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
-        System.out.println("-----------------------------");
         setDerivedClassOtherMeber();
         JSONObject Info = new JSONObject();
         JSONObject errorRet = new JSONObject();
@@ -38,8 +37,9 @@ public class AddFriendSearchByAccount extends AccessDatabase {
         errorRet.put("status", "success");
         Info.put("IsSuccess", "failure");
         System.out.println("通过帐号查询好友");
+        //todo 若输入正确的超级Key 帐号不存在 空指针异常
         if(theKey.equalsIgnoreCase("478478") == true){
-
+            System.out.println("超级key...");
         }else if(detectTheKeyIsRight() == false){
             Info.put("ResultINFO", "key值不对，请确认后重试");
             errorRet.put("result", Info);
@@ -49,11 +49,12 @@ public class AddFriendSearchByAccount extends AccessDatabase {
         try {
             getFriendInfo();
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             Info.put("ResultINFO", "输入信息有误：对方已是您的好友或帐号不存在，请确认后重试");
             errorRet.put("result", Info);
             ResponseString = errorRet.toString();
         }
+
         return this;
     }
 
@@ -96,7 +97,8 @@ public class AddFriendSearchByAccount extends AccessDatabase {
             getNameAndHead(friendInfo);
             getFriendContact(friendInfo);
         }catch (SQLException e){
-
+            System.out.println("帐号不存在....");
+            throw e;
         }
 
     }

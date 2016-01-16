@@ -9,15 +9,15 @@ import java.sql.*;
  */
 public class DatabasePool {
     private static ComboPooledDataSource poolSource;
-//    private static final DatabasePool dbPool;
+    private static final DatabasePool dbPool;
     private static DatabaseUserInfo userInfo;
 
-  //  static {
-//        dbPool = new DatabasePool("root", "w13659218813", "127.0.0.1", "XL_db");
-//            dbPool = new DatabasePool("rds1l1z1ubg1x0w81y40", "w13659218813", "rds1l1z1ubg1x0w81y40.mysql.rds.aliyuncs.com", "XL_db");
+    static {
+        dbPool = new DatabasePool("root", "w13659218813", "127.0.0.1", "XL_db");
+//        dbPool = new DatabasePool("rds1l1z1ubg1x0w81y40", "w13659218813", "rds1l1z1ubg1x0w81y40.mysql.rds.aliyuncs.com", "XL_db");
 //        dbPool = new DatabasePool("rv27st52b707t671", "w13659218813", "rds1l1z1ubg1x0w81y40.mysql.rds.aliyuncs.com:3306", "XL_db");
 
- //   }
+    }
 
     public DatabasePool(String account, String password, String ip, String databaseName){
         try{
