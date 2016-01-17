@@ -60,12 +60,17 @@ int main(int argc, char *argv[])
         //strcpy(buffer, "{\"mark\":1,\"account\":\"1111\"}");
         //mark2 帐号注册 yes
         //strcpy(buffer, "{\"mark\":2,\"account\":\"zhuchen\", \"secret\":\"123456789\"}");
+        //new mark2 
+        //flag = 1 帐号注册
+        //flag = 2 验证密码修改密宝
+        //flag = 3 验证密宝修改密码
+        strcpy(buffer, "{\"mark\":2, \"account\":\"zhu\", \"secret\":\"123456789\", \"flag\":1, \"question\":\"xxx\", \"answer\":\"xxx\"}");
         //mark3 验证密宝 yes
         //strcpy(buffer, "{\"mark\":3,\"account\":\"1111\", \"type\":\"1\", \"verify\":\"1888292929\"}");
         //mark4 修改密码 yes
         //strcpy(buffer, "{\"mark\":4,\"account\":\"1111\", \"secret\":\"weihao\"}");
         //mark5 修改资料 yes
-        strcpy(buffer, "{\"mark\":5,\"account\":\"zhuchen\",\"name\":\"hahahahaha\", \"head\":\"1\"}");
+        //strcpy(buffer, "{\"mark\":5,\"account\":\"zhuchen\",\"name\":\"hahahahaha\", \"head\":\"1\"}");
         //mark6 更新联系
         //注意返回为空也算失败
         //update数据，并且更新isUpdate数值

@@ -150,12 +150,14 @@ public class AddFriendByQRCode extends AccessDatabase {
         userUid = resultSet.getInt(1);
         return userUid;
     }
+
+
     private String friendAccount;
+    private String expireTime;
     private int authority;
     private int qid;
-    private ResultSet resultSet;
-    private String expireTime;
-    private Long timeOut;
-    private ResultObject resultObject;
     private int userUid;
+    private Long timeOut;
+    private ResultSet resultSet;
+    private ResultObject resultObject;
 }

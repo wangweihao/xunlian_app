@@ -19,45 +19,75 @@ public class AccountRegister extends AccessDatabase {
 
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
+        System.out.println("---------------------------------");
         System.out.println("帐号注册");
+        System.out.println("---------------------------------");
         setDerivedClassOtherMeber();
-        sqlString = "insert into UserInfo (account, password) values (\"" +
-                basicObject.getAccount() + "\",\"" + Secret + "\");";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlString);
-        try {
-            ConstructSelfInfo(preparedStatement.executeUpdate());
-        }catch (Exception e){
-            /* 帐号已存在 */
-            ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
-                    "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"failure\"," +
-                    "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"帐号以存在\"}}";
+        switch(flag){
+            case 1:
+                accountRegister();
+                break;
+            case 2:
+                modifyQuestionBySecret();
+                break;
+            case 3:
+                modifySecretByQuestion();
+                break;
+            default:
+                break;
         }
+
         return this;
     }
 
     @Override
     public void setDerivedClassOtherMeber(){
         jsonObject = new JSONObject(RequestString);
-        Secret = new String(jsonObject.getString("secret"));
+        flag = jsonObject.getInt("flag");
+        secret = new String(jsonObject.getString("secret"));
+        question = new String(jsonObject.getString("question"));
+        answer = new String(jsonObject.getString("answer"));
     }
 
-    @Override
-    public void ConstructSelfInfo(int SuccessOrFailure){
-        if(ResponseString == null) {
-            /*if (SuccessOrFailure == 1) {
-                ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
-                        "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
-                        "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"注册成功\"}}";
-            } else {
-                ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
-                        "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"failure\"," +
-                        "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"注册失败\"}}";
-            }*/
-            ResponseString = "{\"error\":0, \"status\":\"success\", \"date\":\"" + ObtainData.getData() + "\", " +
-                    "\"result\":{\"requestPhoneNum\":\"" + basicObject.getAccount() + "\", \"IsSuccess\":\"success\"," +
-                    "\"mark\":" + basicObject.getMark() + ",\"ResultINFO\":\"帐号密码设置成功\"}}";
+    public void accountRegister() throws SQLException {
+        String accountRegisterSql = "insert into UserInfo (account, password, question, answer) values (\"" +
+                basicObject.getAccount() + "\", \"" + secret + "\", \"" + question + "\", \"" + answer + "\");";
+        preparedStatement = DBPoolConnection.prepareStatement(accountRegisterSql);
+        try {
+            preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            buildReturnValue(1, "success", "failure", "系统有误，请稍后再试");
         }
+        buildReturnValue(0, "success", "success", "帐号注册成功");
     }
 
-    private String Secret;
+    public void modifyQuestionBySecret(){
+
+    }
+
+    public void modifySecretByQuestion(){
+
+    }
+
+    private void buildReturnValue(int error, String status, String isSuccess, String resultInfo){
+        JSONObject retInfo = new JSONObject();
+        JSONObject Info = new JSONObject();
+
+        retInfo.put("error", error);
+        retInfo.put("status", status);
+        retInfo.put("date", ObtainData.getData());
+        Info.put("requestPhoneNum", basicObject.getAccount());
+        Info.put("IsSuccess", isSuccess);
+        Info.put("mark", basicObject.getMark());
+        Info.put("ResultINFO", resultInfo);
+        retInfo.put("result", Info);
+
+        ResponseString = retInfo.toString();
+    }
+
+    private int flag;
+    private String secret;
+    private String question;
+    private String answer;
 }
