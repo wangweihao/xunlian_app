@@ -54,8 +54,8 @@ public class ObtainAllContactsData extends AccessDatabase {
 
     private int getUserAccountId() throws SQLException {
         try{
-            String sqlGetUserAccountId = "select uid from UserInfo where account = \'" +
-                    basicObject.getAccount() + "\';";
+            String sqlGetUserAccountId = "select uid from UserInfo where account = \"" +
+                    basicObject.getAccount() + "\";";
             preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserAccountId);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();

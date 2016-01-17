@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
         //flag = 1 帐号注册
         //flag = 2 验证密码修改密宝
         //flag = 3 验证密宝修改密码
-        strcpy(buffer, "{\"mark\":2, \"account\":\"zhu\", \"secret\":\"123456789\", \"flag\":1, \"question\":\"xxx\", \"answer\":\"xxx\"}");
+        strcpy(buffer, "{\"mark\":2, \"account\":\"zhu\", \"secret\":\"123456789\", \"flag\":2, \"question\":\"you phone\", \"answer\":\"15029054897\"}");
         //mark3 验证密宝 yes
         //strcpy(buffer, "{\"mark\":3,\"account\":\"1111\", \"type\":\"1\", \"verify\":\"1888292929\"}");
         //mark4 修改密码 yes
