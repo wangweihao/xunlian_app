@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         //flag = 3 验证密宝修改密码
         //strcpy(buffer, "{\"mark\":2, \"account\":\"zhu\", \"secret\":\"123\", \"flag\":2, \"question\":\"you phone\", \"answer\":\"5029054897\"}");
         //mark3 obtain question yes
-        strcpy(buffer, "{\"mark\":3,\"account\":\"zhu\"}");
+        //strcpy(buffer, "{\"mark\":3,\"account\":\"zhu\"}");
         //mark4 修改密码 yes
         //strcpy(buffer, "{\"mark\":4,\"account\":\"1111\", \"secret\":\"weihao\"}");
         //mark5 修改资料 yes
@@ -93,8 +93,8 @@ int main(int argc, char *argv[])
         //strcpy(buffer, "{\"mark\":14, \"account\":\"8888\", \"personInfo\":{\"name\":\"123123\", \"head\":\"1\"},\"phoneInfo\":{\"personPhoneNumber\":\"123123\", \"homePhoneNumber\":\"123123\", \"workPhoneNumber\":\"123123\"},emailInfo:{\"personMailNumber\":\"123123\", \"homeMailNumber\":\"123123\", \"workMailNumber\":\"123123\"},\"qqNumber\":\"123123\", \"weiboNumber\":\"123123\"}");
         //mark15 添加好友
         //strcpy(buffer, "{\"mark\":15, \"account\":\"1101\", \"friendaccount\":\"1102\"}");
-        //mark 16 设置 Key 值
-        //strcpy(buffer, "{\"mark\":16, \"account\":\"1101\", \"theKey\":\"wangweihao\"}");
+        //mark 16 设置 add friend question
+        strcpy(buffer, "{\"mark\":16, \"account\":\"zhu\", \"addquestion\":\"who\", \"addanswer\":\"e\"}");
         send(sock_fd, buffer, 1024, 0);
         char buf[10000];
         recv(sock_fd, buf, 10000, 0);
