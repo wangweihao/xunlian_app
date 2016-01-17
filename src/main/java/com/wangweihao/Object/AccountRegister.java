@@ -133,22 +133,6 @@ public class AccountRegister extends AccessDatabase {
 
     }
 
-    private void buildReturnValue(int error, String status, String isSuccess, String resultInfo){
-        JSONObject retInfo = new JSONObject();
-        JSONObject Info = new JSONObject();
-
-        retInfo.put("error", error);
-        retInfo.put("status", status);
-        retInfo.put("date", ObtainData.getData());
-        Info.put("requestPhoneNum", basicObject.getAccount());
-        Info.put("IsSuccess", isSuccess);
-        Info.put("mark", basicObject.getMark());
-        Info.put("ResultINFO", resultInfo);
-        retInfo.put("result", Info);
-
-        ResponseString = retInfo.toString();
-    }
-
     private void getAccountUid() throws SQLException {
         String getAccountUidSql = "select uid from UserInfo where account = \"" + basicObject.getAccount()
                 + "\";";

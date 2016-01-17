@@ -10,11 +10,11 @@ import java.sql.SQLException;
 /**
  * Created by wwh on 15-10-21.
  */
-public class DecectAccountRegister extends AccessDatabase{
-    public DecectAccountRegister() {
+public class DetectAccountRegister extends AccessDatabase{
+    public DetectAccountRegister() {
         super();
     }
-    public DecectAccountRegister(int _mark, String _account){
+    public DetectAccountRegister(int _mark, String _account){
         super(_mark, _account);
     }
 

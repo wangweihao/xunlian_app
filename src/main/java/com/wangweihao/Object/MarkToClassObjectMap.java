@@ -12,9 +12,9 @@ public class MarkToClassObjectMap {
     public MarkToClassObjectMap() {
         markToClass = new HashMap<Integer, String>() {
             {
-                put(1, "com.wangweihao.Object.DecectAccountRegister");
+                put(1, "com.wangweihao.Object.DetectAccountRegister");
                 put(2, "com.wangweihao.Object.AccountRegister");
-                put(3, "com.wangweihao.Object.VerifySecretSecurity");
+                put(3, "com.wangweihao.Object.ObtainQuestion");
                 put(4, "com.wangweihao.Object.ModifySecret");
                 put(5, "com.wangweihao.Object.ModifyData");
                 put(6, "com.wangweihao.Object.UpdateContact");
