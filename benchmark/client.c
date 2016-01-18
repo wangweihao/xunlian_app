@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
         //mark8 本地有数据，获得需要更新的数据 yes
         //strcpy(buffer, "{\"mark\":8,\"account\":\"4444\"}");
         //mark9 yes 获取好友信息
-        //strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"zahuchen\", \"theKey\":\"478478\"}");
+        strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"2\"}");
         //mark10 借用mark11生成的二维码的信息组成新的json请求
         //strcpy(buffer, "{\"mark\":10, \"account\":\"1111\", \"friendaccount\":\"5555\", \"qid\":8}");
         //mark11 yes 新建二维码
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
         //mark15 添加好友
         //strcpy(buffer, "{\"mark\":15, \"account\":\"1101\", \"friendaccount\":\"1102\"}");
         //mark 16 设置 add friend question
-        strcpy(buffer, "{\"mark\":16, \"account\":\"zhu\", \"addquestion\":\"who\", \"addanswer\":\"e\"}");
+        //strcpy(buffer, "{\"mark\":16, \"account\":\"zhu\", \"addquestion\":\"who\", \"addanswer\":\"e\"}");
         send(sock_fd, buffer, 1024, 0);
         char buf[10000];
         recv(sock_fd, buf, 10000, 0);

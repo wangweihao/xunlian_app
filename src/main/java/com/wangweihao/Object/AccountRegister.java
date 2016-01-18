@@ -39,7 +39,6 @@ public class AccountRegister extends AccessDatabase {
             default:
                 break;
         }
-
         return this;
     }
 
