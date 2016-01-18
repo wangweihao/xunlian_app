@@ -11,6 +11,42 @@ import java.util.TreeSet;
 public class OneFriendInfo {
     private String name;
     private int head;
+    private String question;
+    private String answer;
+    private String addQuestion;
+    private String addAnswer;
+
+    public void setAddAnswer(String addAnswer) {
+        this.addAnswer = addAnswer;
+    }
+
+    public void setAddQuestion(String addQuestion) {
+        this.addQuestion = addQuestion;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAddAnswer() {
+        return addAnswer;
+    }
+
+    public String getAddQuestion() {
+        return addQuestion;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -24,7 +60,7 @@ public class OneFriendInfo {
         this.head = head;
     }
 
-    public int getHead() {
+    public int getHead()  {
         return head;
     }
 

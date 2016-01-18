@@ -96,7 +96,9 @@ int main(int argc, char *argv[])
         //mark 16 设置 add friend question
         //strcpy(buffer, "{\"mark\":16, \"account\":\"zhu\", \"addquestion\":\"who\", \"addanswer\":\"e\"}");
         //mark 17 设置 add friend question
-        strcpy(buffer, "{\"mark\":17, \"account\":\"zhu\", \"friendaccount\":\"zhuchen\", \"answer\":\"e\"}");
+        //strcpy(buffer, "{\"mark\":17, \"account\":\"zhu\", \"friendaccount\":\"zhuchen\", \"answer\":\"e\"}");
+        //mark 18 obtain self info
+        strcpy(buffer, "{\"mark\":18, \"account\":\"zhu\"}");
         send(sock_fd, buffer, 1024, 0);
         char buf[10000];
         recv(sock_fd, buf, 10000, 0);

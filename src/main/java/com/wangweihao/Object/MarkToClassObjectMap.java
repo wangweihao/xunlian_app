@@ -20,7 +20,7 @@ public class MarkToClassObjectMap {
                 put(6, "com.wangweihao.Object.UpdateContact");
                 put(7, "com.wangweihao.Object.ObtainAllContactsData");
                 put(8, "com.wangweihao.Object.ObtainNewContactsData");
-//                put(9, "com.wangweihao.Object.AddFriendSearchByAccount");
+//              put(9, "com.wangweihao.Object.AddFriendSearchByAccount");
                 put(9, "com.wangweihao.Object.CheckUserIsExit");
                 put(10, "com.wangweihao.Object.AddFriendByQRCode");
                 put(11, "com.wangweihao.Object.CreateQRCode");
@@ -30,6 +30,7 @@ public class MarkToClassObjectMap {
                 put(15, "com.wangweihao.Object.AddFriendByAccount");
                 put(16, "com.wangweihao.Object.SetAddFriendQuestion");
                 put(17, "com.wangweihao.Object.CheckAddFriendQuestion");
+                put(18, "com.wangweihao.Object.ObtainSelfInfo");
             }
         };
     }
