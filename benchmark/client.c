@@ -98,7 +98,9 @@ int main(int argc, char *argv[])
         //mark 17 设置 add friend question
         //strcpy(buffer, "{\"mark\":17, \"account\":\"zhu\", \"friendaccount\":\"zhuchen\", \"answer\":\"e\"}");
         //mark 18 obtain self info
-        strcpy(buffer, "{\"mark\":18, \"account\":\"zhu\"}");
+        //strcpy(buffer, "{\"mark\":18, \"account\":\"zhu\"}");
+        //mark 19 obtain backup data
+        strcpy(buffer, "{\"mark\":19, \"account\":\"zhu\", contacts:[{\"name\":\"wang\", \"phone\":\"18829292929\"}, {\"name\":\"wei\", \"phone\":\"17728282828\"}]}");
         send(sock_fd, buffer, 1024, 0);
         char buf[10000];
         recv(sock_fd, buf, 10000, 0);
