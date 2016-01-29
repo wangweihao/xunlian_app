@@ -61,6 +61,7 @@ public class ObtainSelfInfo extends AccessDatabase {
 
     public boolean ObtainSelfContact() throws SQLException {
         contactJson = new JSONObject();
+        contactJson.put("account", basicObject.getAccount());
         contactJson.put("personNumber", "");
         contactJson.put("workNumber", "");
         contactJson.put("homeNumber", "");

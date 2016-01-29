@@ -55,7 +55,7 @@ public class XlServer {
 
     /*单元测试服务端*/
     public static void main(String[] args) throws Exception {
-        //XlServer server = new XlServer("121.42.210.40", 10000);
+        //XlServer server = new XlServer("121.42.210.40", 10001);
         XlServer server = new XlServer("127.0.0.1", 10000);
         //XlServer server = new XlServer("192.168.1.6", 10000);
         server.run();

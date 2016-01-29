@@ -109,7 +109,7 @@ public class ObtainNewContactsData extends AccessDatabase {
             jsonResponse.put("date", ObtainData.getData());
             for (Integer friendId : FriendIdAndIsUpdate.keySet()){
                 JSONObject oneFriend = getNameAndHead(friendId);
-                oneFriend.put("friendaccount", getFriendId(friendId));
+                oneFriend.put("account", getFriendId(friendId));
                 for (Integer type : ContactType.ContactType){
                     Integer isUpdate = FriendIdAndIsUpdate.get(friendId);
                     Integer saveType = type;
