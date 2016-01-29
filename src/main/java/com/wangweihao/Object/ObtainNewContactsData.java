@@ -87,6 +87,14 @@ public class ObtainNewContactsData extends AccessDatabase {
         preparedStatement.executeUpdate();
     }
 
+    private String getFriendId(int friendUid) throws SQLException {
+        String sqlGetFriendUid = "select account from UserInfo where uid = \"" + friendUid + "\";";
+        preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendUid);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getString(1);
+    }
+
     private void packUpdateFriend() throws SQLException {
         getFriendIdAndIsUpdate();
         if (FriendIdAndIsUpdate.isEmpty()){
@@ -101,6 +109,7 @@ public class ObtainNewContactsData extends AccessDatabase {
             jsonResponse.put("date", ObtainData.getData());
             for (Integer friendId : FriendIdAndIsUpdate.keySet()){
                 JSONObject oneFriend = getNameAndHead(friendId);
+                oneFriend.put("friendaccount", getFriendId(friendId));
                 for (Integer type : ContactType.ContactType){
                     Integer isUpdate = FriendIdAndIsUpdate.get(friendId);
                     Integer saveType = type;
@@ -125,7 +134,6 @@ public class ObtainNewContactsData extends AccessDatabase {
             }
             jsonResponse.put("result", jsonFriend);
             ResponseString = jsonResponse.toString();
-
         }
     }
 

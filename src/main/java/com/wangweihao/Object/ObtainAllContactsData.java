@@ -12,7 +12,7 @@ import java.util.HashSet;
 
 /**
  * Created by wwh on 15-10-21.
- * 数据备份功能
+ * mark 7 获取所有好友数据
  */
 public class ObtainAllContactsData extends AccessDatabase {
     public ObtainAllContactsData() {
@@ -95,7 +95,18 @@ public class ObtainAllContactsData extends AccessDatabase {
                 myFriend.contactSet.get(resultSet.getInt(1)).update(resultSet.getInt(1), resultSet.getString(2));
             }
         }
+        /* 获取好友账户 */
+        myFriend.setAccount(getFriendId(userId));
         myFriendInfo.add(myFriend);
+    }
+
+    /* 获取好友账户 */
+    private String getFriendId(int friendUid) throws SQLException {
+        String sqlGetFriendUid = "select account from UserInfo where uid = \"" + friendUid + "\";";
+        preparedStatement = DBPoolConnection.prepareStatement(sqlGetFriendUid);
+        resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getString(1);
     }
 
     /* 组装好友信息 */
@@ -107,6 +118,7 @@ public class ObtainAllContactsData extends AccessDatabase {
         jsonResponse.put("data", ObtainData.getData());
         for (OneFriendInfo oneFriend : myFriendInfo){
             JSONObject friendContactInfo = new JSONObject();
+            friendContactInfo.put("account", oneFriend.getAccount());
             friendContactInfo.put("name", oneFriend.getName());
             friendContactInfo.put("head", oneFriend.getHead());
             friendContactInfo.put("personNumber", oneFriend.contactSet.get(1).getContact());

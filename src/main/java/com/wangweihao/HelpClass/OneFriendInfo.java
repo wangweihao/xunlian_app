@@ -15,6 +15,15 @@ public class OneFriendInfo {
     private String answer;
     private String addQuestion;
     private String addAnswer;
+    private String account;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     public void setAddAnswer(String addAnswer) {
         this.addAnswer = addAnswer;
