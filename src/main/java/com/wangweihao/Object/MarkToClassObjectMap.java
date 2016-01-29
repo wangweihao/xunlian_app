@@ -33,6 +33,7 @@ public class MarkToClassObjectMap {
                 put(18, "com.wangweihao.Object.ObtainSelfInfo");
                 put(19, "com.wangweihao.Object.BackupLocalData");
                 put(20, "com.wangweihao.Object.ObtainBackupLocalData");
+                put(21, "com.wangweihao.Object.AddFriendSearchByAccount");
             }
         };
     }
