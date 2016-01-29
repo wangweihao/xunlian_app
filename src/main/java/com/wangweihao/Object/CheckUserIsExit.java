@@ -51,15 +51,15 @@ public class CheckUserIsExit  extends AccessDatabase {
             return;
         }
         if(isHaveData == false){
-            buildReturnValue(0, "success", "failure", "该用户不存在");
+            buildReturnValue(2, "success", "failure", "该用户不存在");
             return;
         }
         String addquestion = resultSet.getString(1);
         if(addquestion.equals("")){
-            buildReturnValue(0, "success", "success", "无添加好友问题，可直接添加");
+            buildReturnValue(3, "success", "success", "无添加好友问题，可直接添加");
             return;
         }else{
-            buildReturnValue(0, "success", "success", addquestion);
+            buildReturnValue(4, "success", "success", addquestion);
         }
         return;
     }
