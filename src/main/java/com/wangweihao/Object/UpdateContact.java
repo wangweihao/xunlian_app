@@ -66,6 +66,7 @@ public class UpdateContact extends AccessDatabase {
             }catch (SQLException e){
                 e.printStackTrace();
                 System.out.println("updateName error");
+                throw e;
             }
         }
         if(head >=0 && head <= 6){
@@ -76,6 +77,7 @@ public class UpdateContact extends AccessDatabase {
             }catch (SQLException e){
                 e.printStackTrace();
                 System.out.println("updateHead error");
+                throw e;
             }
 
         }
@@ -84,10 +86,15 @@ public class UpdateContact extends AccessDatabase {
     private void getUserAccountId() throws SQLException {
         String sqlGetUserAccountId = "select uid from UserInfo where account = \'" +
                 basicObject.getAccount() + "\';";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserAccountId);
-        resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        accountUid = resultSet.getInt(1);
+        try {
+            preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserAccountId);
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            accountUid = resultSet.getInt(1);
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     private void updateContact() throws SQLException {
@@ -100,13 +107,22 @@ public class UpdateContact extends AccessDatabase {
     private void updateOneContact(int type, String content) throws SQLException {
         String sqlUpdateContact = "update UserContact set content = \"" + content + "\" where " +
                 "uid = \"" + accountUid + "\" and type = \"" + type + "\";";
-        preparedStatement = DBPoolConnection.prepareStatement(sqlUpdateContact);
-        preparedStatement.executeUpdate();
+        System.out.println("---------------------");
+        System.out.println(content);
+        System.out.println("---------------------");
+        try {
+            preparedStatement = DBPoolConnection.prepareStatement(sqlUpdateContact);
+            preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     private void updateFriendFlagIsUpdate() throws SQLException {
+        System.out.println("updateFriendFlagIsUpdate");
         ObtainFriendAccount();
-        for(String theFriendAccount : FriendAccount){
+        for(Integer theFriendAccount : FriendAccount){
             String sqlUpdateFriendFlagIsUpdate = "select isUpdate from UserFriend where uid = \"" + accountUid +"\"" +
                     " and friendId = \"" + theFriendAccount + "\";";
             preparedStatement = DBPoolConnection.prepareStatement(sqlUpdateFriendFlagIsUpdate);
@@ -116,8 +132,11 @@ public class UpdateContact extends AccessDatabase {
                 oldFlagIsUpdate += resultSet.getInt(1);
             }
             int newFlagIsUpdate = oldFlagIsUpdate | typeSum;
-            String sqlUpdateFriendIsUpdate =  "update UserFriend set isUpdate = \"" + newFlagIsUpdate + "\" where uid = " +
-                    "\"" + accountUid + "\" and friendId = \"" + theFriendAccount + "\";";
+            String sqlUpdateFriendIsUpdate =  "update UserFriend set isUpdate = \"" + newFlagIsUpdate + "\" where friendId = " +
+                    "\"" + accountUid + "\" and uid = \"" + theFriendAccount + "\";";
+            System.out.println("-----------------------------------");
+            System.out.println(sqlUpdateFriendFlagIsUpdate);
+            System.out.println("-----------------------------------");
             preparedStatement = DBPoolConnection.prepareStatement(sqlUpdateFriendIsUpdate);
             if(preparedStatement.executeUpdate() != 1){
                 ResponseString = "{\"error\":1, \"status\":\"failure\", \"date\":\"" + ObtainData.getData() + "\", " +
@@ -129,13 +148,16 @@ public class UpdateContact extends AccessDatabase {
     }
 
     private void ObtainFriendAccount() throws SQLException {
-        FriendAccount = new ArrayList<String>();
+        FriendAccount = new ArrayList<Integer>();
         String sqlObtainUserAccount = "select friendId from UserFriend where uid = \"" +
                 accountUid + "\";";
+        System.out.println(sqlObtainUserAccount);
         preparedStatement = DBPoolConnection.prepareStatement(sqlObtainUserAccount);
         resultSet = preparedStatement.executeQuery();
+        System.out.println("friend id");
         while(resultSet.next()){
-            FriendAccount.add(resultSet.getString(1));
+            System.out.println(resultSet.getInt(1));
+            FriendAccount.add(resultSet.getInt(1));
         }
     }
 
@@ -145,7 +167,7 @@ public class UpdateContact extends AccessDatabase {
     private int typeSum = 0;
     private ResultSet resultSet;
     private Map<Integer, String> updateContact;
-    private List<String> FriendAccount;
+    private List<Integer> FriendAccount;
 
 }
 
