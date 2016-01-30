@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         //flag = 3 验证密宝修改密码
         //strcpy(buffer, "{\"mark\":2, \"account\":\"zhu\", \"secret\":\"123\", \"flag\":2, \"question\":\"you phone\", \"answer\":\"5029054897\"}");
         //mark3 obtain question yes
-        //strcpy(buffer, "{\"mark\":3,\"account\":\"zhu\"}");
+        strcpy(buffer, "{\"mark\":3,\"account\":\"zhuz\"}");
         //mark4 修改密码 yes
         //strcpy(buffer, "{\"mark\":4,\"account\":\"1111\", \"secret\":\"weihao\"}");
         //mark5 修改资料 yes
@@ -74,9 +74,9 @@ int main(int argc, char *argv[])
         //mark6 更新联系
         //注意返回为空也算失败
         //update数据，并且更新isUpdate数值
-        //strcpy(buffer, "{\"mark\":6,\"account\":\"3333\", info:{\"name\":\"acdacd\", \"head\":\"1\"}, update:[{\"type\":1, \"content\":\"123123123123\"}]}");
+        //strcpy(buffer, "{\"mark\":6,\"account\":\"zhuchen\", info:{\"name\":\"acdacd\", \"head\":\"1\"}, update:[{\"type\":4, \"content\":\"1111111111111\"}]}");
         //mark7 本地没有数据，获得所有的数据 yes
-        strcpy(buffer, "{\"mark\":7,\"account\":\"zhu\"}");
+        //strcpy(buffer, "{\"mark\":7,\"account\":\"zhu\"}");
         //mark8 本地有数据，获得需要更新的数据 yes
         //strcpy(buffer, "{\"mark\":8,\"account\":\"zhu\"}");
         //mark9 yes 获取好友信息

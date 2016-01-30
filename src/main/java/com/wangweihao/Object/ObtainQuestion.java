@@ -28,19 +28,18 @@ public class ObtainQuestion extends AccessDatabase{
         try{
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
+            question = resultSet.getString(1);
         } catch (SQLException e){
             e.printStackTrace();
             buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
             return this;
         }
-        question = resultSet.getString(1);
         buildReturnValue(1, "success", "success", question);
         return this;
     }
 
     @Override
     public void setDerivedClassOtherMeber(){
-
     }
 
     private ResultSet resultSet;
