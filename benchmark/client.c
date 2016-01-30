@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         //flag = 3 验证密宝修改密码
         //strcpy(buffer, "{\"mark\":2, \"account\":\"zhu\", \"secret\":\"123\", \"flag\":2, \"question\":\"you phone\", \"answer\":\"5029054897\"}");
         //mark3 obtain question yes
-        strcpy(buffer, "{\"mark\":3,\"account\":\"zhuz\"}");
+        //strcpy(buffer, "{\"mark\":3,\"account\":\"zhuz\"}");
         //mark4 修改密码 yes
         //strcpy(buffer, "{\"mark\":4,\"account\":\"1111\", \"secret\":\"weihao\"}");
         //mark5 修改资料 yes
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
         //mark14 一次性录入数据 需要改进，若用户没有填写某一信息，则不往数据库写记录
         //strcpy(buffer, "{\"mark\":14, \"account\":\"8888\", \"personInfo\":{\"name\":\"123123\", \"head\":\"1\"},\"phoneInfo\":{\"personPhoneNumber\":\"123123\", \"homePhoneNumber\":\"123123\", \"workPhoneNumber\":\"123123\"},emailInfo:{\"personMailNumber\":\"123123\", \"homeMailNumber\":\"123123\", \"workMailNumber\":\"123123\"},\"qqNumber\":\"123123\", \"weiboNumber\":\"123123\"}");
         //mark15 添加好友
-        //strcpy(buffer, "{\"mark\":15, \"account\":\"1101\", \"friendaccount\":\"1102\"}");
+        strcpy(buffer, "{\"mark\":15, \"account\":\"zhu\", \"friendaccount\":\"zhuchen\"}");
         //mark 16 设置 add friend question
         //strcpy(buffer, "{\"mark\":16, \"account\":\"zhu\", \"addquestion\":\"who\", \"addanswer\":\"e\"}");
         //mark 17 设置 add friend question

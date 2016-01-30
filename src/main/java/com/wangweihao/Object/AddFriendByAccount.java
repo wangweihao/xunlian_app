@@ -22,7 +22,11 @@ public class AddFriendByAccount extends AccessDatabase{
     public AccessDatabase AccessXlDatabase() throws SQLException {
         System.out.println("通过帐号添加好友");
         setDerivedClassOtherMeber();
-        addFriendByAccount();
+        if(addFriendByAccount() && addFriendAndUser()){
+            System.out.println("添加好友成功");
+        }else{
+            System.out.println("添加好友失败");
+        }
         return this;
     }
 
@@ -31,7 +35,7 @@ public class AddFriendByAccount extends AccessDatabase{
         jsonObject = new JSONObject(RequestString);
         friendAccount = new String(jsonObject.getString("friendaccount"));
     }
-    private int addFriendByAccount() throws SQLException {
+    private boolean addFriendByAccount() throws SQLException {
         String sqlGetUserAccountId = "insert into UserFriend (uid, friendId) values (" +
                 "(select uid from UserInfo where account = \"" + basicObject.getAccount() + "\")," +
                 "(select uid from UserInfo where account = \"" + friendAccount + "\"));";
@@ -44,25 +48,27 @@ public class AddFriendByAccount extends AccessDatabase{
             preparedStatement.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
-            JSONObject errorRet = new JSONObject();
-            errorRet.put("error", 1);
-            errorRet.put("status", "success");
-            errorRet.put("data", ObtainData.getData());
-            Info.put("IsSuccess", "failure");
-            Info.put("ResultINFO", "输入信息有误：对方已是您的好友或帐号不存在，请确认后重试");
-            errorRet.put("result", Info);
-            ResponseString = errorRet.toString();
-            return 1;
+            buildReturnValue(1, "success", "failure", "系统错误，请稍候再试");
+            return false;
         }
-        JSONObject rightRet = new JSONObject();
-        rightRet.put("error", 0);
-        rightRet.put("status", "success");
-        rightRet.put("data", ObtainData.getData());
-        Info.put("IsSuccess", "success");
-        Info.put("ResultINFO", "添加好友成功，对方已是您的好友");
-        rightRet.put("result", Info);
-        ResponseString = rightRet.toString();
-        return 0;
+        return true;
+    }
+
+    /* 双向添加 */
+    public boolean addFriendAndUser() throws SQLException {
+        String sqlGetUserAccountId = "insert into UserFriend (uid, friendId) values (" +
+                "(select uid from UserInfo where account = \"" + friendAccount + "\")," +
+                "(select uid from UserInfo where account = \"" + basicObject.getAccount() + "\"));";
+        preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserAccountId);
+        try{
+            preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+            return false;
+        }
+        buildReturnValue(0, "success", "success", "添加好友成功");
+        return true;
     }
 
     private ResultSet resultSet;
