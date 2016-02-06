@@ -58,13 +58,11 @@ int main(int argc, char *argv[])
         //scanf("%s", buffer);
         //mark1 检测帐号是否存在 yes
         //strcpy(buffer, "{\"mark\":1,\"account\":\"1111\"}");
-        //mark2 帐号注册 yes
-        //strcpy(buffer, "{\"mark\":2,\"account\":\"zhuchen\", \"secret\":\"123456789\"}");
         //new mark2 
         //flag = 1 帐号注册
         //flag = 2 验证密码修改密宝
         //flag = 3 验证密宝修改密码
-        //strcpy(buffer, "{\"mark\":2, \"account\":\"zhu\", \"secret\":\"123\", \"flag\":2, \"question\":\"you phone\", \"answer\":\"5029054897\"}");
+        //strcpy(buffer, "{\"mark\":2, \"account\":\"zhuchenguan\", \"secret\":\"123\", \"flag\":1, \"question\":\"you phone\", \"answer\":\"5029054897\"}");
         //mark3 obtain question yes
         //strcpy(buffer, "{\"mark\":3,\"account\":\"zhuz\"}");
         //mark4 修改密码 yes
@@ -74,11 +72,11 @@ int main(int argc, char *argv[])
         //mark6 更新联系
         //注意返回为空也算失败
         //update数据，并且更新isUpdate数值
-        //strcpy(buffer, "{\"mark\":6,\"account\":\"zhuchen\", info:{\"name\":\"acdacd\", \"head\":\"1\"}, update:[{\"type\":4, \"content\":\"1111111111111\"}]}");
+        //strcpy(buffer, "{\"mark\":6,\"account\":\"zhuchenguan\", info:{\"name\":\"acdacd\", \"head\":\"1\"}, update:[{\"type\":4, \"content\":\"1111111111111\"}]}");
         //mark7 本地没有数据，获得所有的数据 yes
         //strcpy(buffer, "{\"mark\":7,\"account\":\"zhu\"}");
         //mark8 本地有数据，获得需要更新的数据 yes
-        //strcpy(buffer, "{\"mark\":8,\"account\":\"zhu\"}");
+        strcpy(buffer, "{\"mark\":8,\"account\":\"zhua\"}");
         //mark9 yes 获取好友信息
         //strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"2\"}");
         //mark10 借用mark11生成的二维码的信息组成新的json请求
@@ -92,7 +90,7 @@ int main(int argc, char *argv[])
         //mark14 一次性录入数据 需要改进，若用户没有填写某一信息，则不往数据库写记录
         //strcpy(buffer, "{\"mark\":14, \"account\":\"8888\", \"personInfo\":{\"name\":\"123123\", \"head\":\"1\"},\"phoneInfo\":{\"personPhoneNumber\":\"123123\", \"homePhoneNumber\":\"123123\", \"workPhoneNumber\":\"123123\"},emailInfo:{\"personMailNumber\":\"123123\", \"homeMailNumber\":\"123123\", \"workMailNumber\":\"123123\"},\"qqNumber\":\"123123\", \"weiboNumber\":\"123123\"}");
         //mark15 添加好友
-        strcpy(buffer, "{\"mark\":15, \"account\":\"zhu\", \"friendaccount\":\"zhuchen\"}");
+        //strcpy(buffer, "{\"mark\":15, \"account\":\"zhu\", \"friendaccount\":\"zhuchen\"}");
         //mark 16 设置 add friend question
         //strcpy(buffer, "{\"mark\":16, \"account\":\"zhu\", \"addquestion\":\"who\", \"addanswer\":\"e\"}");
         //mark 17 设置 add friend question
