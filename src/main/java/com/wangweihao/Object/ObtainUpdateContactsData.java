@@ -27,7 +27,8 @@ public class ObtainUpdateContactsData extends AccessDatabase {
 
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException {
-        if(getUserUid() && getFriendIdAndIsUpdate() && getFriendUpdateContacts() && modifyFriendIsUpdate()){
+        //if(getUserUid() && getFriendIdAndIsUpdate() && getFriendUpdateContacts() && modifyFriendIsUpdate()){
+        if(getUserUid() && getFriendIdAndIsUpdate() && getFriendUpdateContacts()){
             System.out.println("下拉刷新操作成功");
         }else {
             System.out.println("下拉刷新操作失败");
@@ -45,7 +46,7 @@ public class ObtainUpdateContactsData extends AccessDatabase {
             userUid = resultSet.getInt(1);
         }catch (SQLException e){
             e.printStackTrace();
-            buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+            buildReturnValue(1, "success", "failure", "好像出了点问题，稍后再试哦~亲~");
             return false;
         }
         return true;
@@ -63,7 +64,7 @@ public class ObtainUpdateContactsData extends AccessDatabase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+            buildReturnValue(1, "success", "failure", "好像出了点问题，稍后再试哦~亲~");
             return false;
         }
         return true;
@@ -71,7 +72,7 @@ public class ObtainUpdateContactsData extends AccessDatabase {
 
     private boolean getFriendUpdateContacts(){
         if(friendIdAndIsUpdate.isEmpty()){
-            buildReturnValue(0, "success", "success", "暂时没有好友更新数据~");
+            buildReturnValue(1, "success", "success", "暂时没有好友更新数据哦~");
             return true;
         }else {
             /* 返回更新信息好友的 json 数组 */
@@ -103,7 +104,7 @@ public class ObtainUpdateContactsData extends AccessDatabase {
                             contacts.put(contact);
                         } catch (SQLException e) {
                             e.printStackTrace();
-                            buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+                            buildReturnValue(1, "success", "failure", "好像出了点问题，稍后再试哦~亲~");
                             return false;
                         }
                     }
@@ -128,12 +129,13 @@ public class ObtainUpdateContactsData extends AccessDatabase {
             info.put("head", resultSet.getInt(3));
         } catch (SQLException e) {
             e.printStackTrace();
-            buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+            buildReturnValue(1, "success", "failure", "好像出了点问题，稍后再试哦~亲~");
             return false;
         }
         return true;
     }
 
+/*
     private boolean modifyFriendIsUpdate() throws SQLException{
         for(Integer friendId : friendIdAndIsUpdate.keySet()){
             String modifyFriendIsUpdateSql = "update UserFriend set isUpdate = 0 where uid = \"" + userUid +
@@ -143,13 +145,13 @@ public class ObtainUpdateContactsData extends AccessDatabase {
                 preparedStatement.executeUpdate();
             }catch (SQLException e){
                 e.printStackTrace();
-                buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+                buildReturnValue(1, "success", "failure", "好像出了点问题，稍后再试哦~亲~");
                 return false;
             }
         }
         return true;
     }
-
+*/
     private ResultSet resultSet;
     private HashMap<Integer, Integer> friendIdAndIsUpdate;
     private int userUid;

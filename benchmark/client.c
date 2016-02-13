@@ -72,11 +72,11 @@ int main(int argc, char *argv[])
         //mark6 更新联系
         //注意返回为空也算失败
         //update数据，并且更新isUpdate数值
-        //strcpy(buffer, "{\"mark\":6,\"account\":\"zhuchenguan\", info:{\"name\":\"acdacd\", \"head\":\"1\"}, update:[{\"type\":4, \"content\":\"1111111111111\"}]}");
+        //strcpy(buffer, "{\"mark\":6,\"account\":\"zhuchen\", info:{\"name\":\"acdacd\", \"head\":\"1\"}, update:[{\"type\":4, \"content\":\"1111111111111\"}]}");
         //mark7 本地没有数据，获得所有的数据 yes
         //strcpy(buffer, "{\"mark\":7,\"account\":\"zhu\"}");
         //mark8 本地有数据，获得需要更新的数据 yes
-        strcpy(buffer, "{\"mark\":8,\"account\":\"zhua\"}");
+        strcpy(buffer, "{\"mark\":8,\"account\":\"zhu\"}");
         //mark9 yes 获取好友信息
         //strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"2\"}");
         //mark10 借用mark11生成的二维码的信息组成新的json请求
@@ -103,7 +103,8 @@ int main(int argc, char *argv[])
         //strcpy(buffer, "{\"mark\":20, \"account\":\"zhu\"}");
         //mark 21 add friend info
         //strcpy(buffer, "{\"mark\":21, \"account\":\"zhu\", \"friendaccount\":\"zuchen\"}");
-        
+        //mark 22 check update friend is success
+        //strcpy(buffer, "{\"mark\":22, \"account\":\"zhu\"}");
         send(sock_fd, buffer, 1024, 0);
         char buf[10000];
         recv(sock_fd, buf, 10000, 0);
