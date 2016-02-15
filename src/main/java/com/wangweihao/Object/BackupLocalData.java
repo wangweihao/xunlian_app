@@ -48,12 +48,13 @@ public class BackupLocalData extends AccessDatabase {
             preparedStatement = DBPoolConnection.prepareStatement(getUserUidSql);
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
+            userUid = resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
-            buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+            buildReturnValue(1, "success", "failure", "帐号有误！请稍后再试");
             return false;
         }
-        userUid = resultSet.getInt(1);
+
 
         return true;
     }

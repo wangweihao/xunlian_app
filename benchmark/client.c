@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
         //mark7 本地没有数据，获得所有的数据 yes
         //strcpy(buffer, "{\"mark\":7,\"account\":\"zhu\"}");
         //mark8 本地有数据，获得需要更新的数据 yes
-        strcpy(buffer, "{\"mark\":8,\"account\":\"zhu\"}");
+        //strcpy(buffer, "{\"mark\":8,\"account\":\"zhu\"}");
         //mark9 yes 获取好友信息
         //strcpy(buffer, "{\"mark\":9, \"account\":\"\", \"friendaccount\":\"2\"}");
         //mark10 借用mark11生成的二维码的信息组成新的json请求
@@ -98,9 +98,9 @@ int main(int argc, char *argv[])
         //mark 18 obtain self info
         //strcpy(buffer, "{\"mark\":18, \"account\":\"zhu\"}");
         //mark 19 backup data
-        //strcpy(buffer, "{\"mark\":19, \"account\":\"zhu\", contacts:[{\"name\":\"wang\", \"phone\":\"18829292929\"}, {\"name\":\"wei\", \"phone\":\"17728282828\"}]}");
+        strcpy(buffer, "{\"mark\":19, \"account\":\"zhucuan\", contacts:[{\"name\":\"wang\", \"phone\":\"18829292929\"}, {\"name\":\"wei\", \"phone\":\"17728282828\"}]}");
         //mark 20 obtain backup data
-        //strcpy(buffer, "{\"mark\":20, \"account\":\"zhu\"}");
+        //strcpy(buffer, "{\"mark\":20, \"account\":\"zhuchenguan\"}");
         //mark 21 add friend info
         //strcpy(buffer, "{\"mark\":21, \"account\":\"zhu\", \"friendaccount\":\"zuchen\"}");
         //mark 22 check update friend is success
