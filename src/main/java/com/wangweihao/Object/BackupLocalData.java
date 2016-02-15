@@ -22,7 +22,7 @@ public class BackupLocalData extends AccessDatabase {
     @Override
     public AccessDatabase AccessXlDatabase() throws SQLException{
         setDerivedClassOtherMeber();
-        if(getUserUid() && addContacts()){
+        if(getUserUid() && deleteOldContacts() && addContacts()){
             System.out.println("备份数据成功");
         }else{
             System.out.println("备份数据失败");
@@ -82,6 +82,19 @@ public class BackupLocalData extends AccessDatabase {
         }
         buildReturnValue(0, "success", "success", "备份数据成功");
 
+        return true;
+    }
+
+    public boolean deleteOldContacts() throws SQLException{
+        String deleteOldContactsSql = "delete from BackupLocalContacts where uid = \"" +
+                userUid + "\";";
+        try{
+            preparedStatement = DBPoolConnection.prepareStatement(deleteOldContactsSql);
+            preparedStatement.executeUpdate();
+        }catch (SQLException e){
+            buildReturnValue(1, "success", "failure", "系统错误，请稍后再试");
+            return false;
+        }
         return true;
     }
 
