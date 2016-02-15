@@ -25,6 +25,7 @@ public class JsonMessageEncoder {
     /* 编码 */
     public void Encoding(){
         responseString = accessDatabase.getResponseString();
+        responseString += "\r\n";
     }
 
     /* 发送数据 */

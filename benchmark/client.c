@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         bzero(buffer, 1024);
         //scanf("%s", buffer);
         //mark1 检测帐号是否存在 yes
-        //strcpy(buffer, "{\"mark\":1,\"account\":\"1111\"}\r\n");
+        strcpy(buffer, "{\"mark\":1,\"account\":\"1111\"}\r\n");
         //new mark2 
         //flag = 1 帐号注册
         //flag = 2 验证密码修改密宝
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
         //mark 18 obtain self info
         //strcpy(buffer, "{\"mark\":18, \"account\":\"zhu\"}\r\n");
         //mark 19 backup data
-        strcpy(buffer, "{\"mark\":19, \"account\":\"zhu\", contacts:[{\"name\":\"wang\", \"phone\":\"18829292929\"}, {\"name\":\"wei\", \"phone\":\"17728282828\"}]}\r\n");
+        //strcpy(buffer, "{\"mark\":19, \"account\":\"zhu\", contacts:[{\"name\":\"wang\", \"phone\":\"18829292929\"}, {\"name\":\"wei\", \"phone\":\"17728282828\"}]}\r\n");
         //mark 20 obtain backup data
         //strcpy(buffer, "{\"mark\":20, \"account\":\"zhuchenguan\"}\r\n");
         //mark 21 add friend info
