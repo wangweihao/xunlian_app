@@ -54,10 +54,11 @@ int main(int argc, char *argv[])
     }
     char buffer[1024];
     //while(1){
+    //for(int i = 0; i < 100; ++i){
         bzero(buffer, 1024);
         //scanf("%s", buffer);
         //mark1 检测帐号是否存在 yes
-        strcpy(buffer, "{\"mark\":1,\"account\":\"1111\"}\r\n");
+        //strcpy(buffer, "{\"mark\":1,\"account\":\"1111\"}\r\n");
         //new mark2 
         //flag = 1 帐号注册
         //flag = 2 验证密码修改密宝
@@ -86,11 +87,11 @@ int main(int argc, char *argv[])
         //mark12 yes 登录
         //strcpy(buffer, "{\"mark\":12,\"account\":\"2222\", \"secret\":\"2222\"}\r\n");
         //mark13 yes 删除好友   漏洞:好友不存在也能删除
-        //strcpy(buffer, "{\"mark\":13,\"account\":\"003308\", \"friendaccount\":\"1111\"}\r\n");
+        //strcpy(buffer, "{\"mark\":13,\"account\":\"zhu\", \"friendaccount\":\"zhuchen\"}\r\n");
         //mark14 一次性录入数据 需要改进，若用户没有填写某一信息，则不往数据库写记录
         //strcpy(buffer, "{\"mark\":14, \"account\":\"8888\", \"personInfo\":{\"name\":\"123123\", \"head\":\"1\"},\"phoneInfo\":{\"personPhoneNumber\":\"123123\", \"homePhoneNumber\":\"123123\", \"workPhoneNumber\":\"123123\"},emailInfo:{\"personMailNumber\":\"123123\", \"homeMailNumber\":\"123123\", \"workMailNumber\":\"123123\"},\"qqNumber\":\"123123\", \"weiboNumber\":\"123123\"}\r\n");
         //mark15 添加好友
-        //strcpy(buffer, "{\"mark\":15, \"account\":\"zhu\", \"friendaccount\":\"zhuchen\"}\r\n");
+        strcpy(buffer, "{\"mark\":15, \"account\":\"zhaozihao\", \"friendaccount\":\"yyyyyyyy\"}\r\n");
         //mark 16 设置 add friend question
         //strcpy(buffer, "{\"mark\":16, \"account\":\"zhu\", \"addquestion\":\"who\", \"addanswer\":\"e\"}\r\n");
         //mark 17 设置 add friend question
@@ -98,17 +99,18 @@ int main(int argc, char *argv[])
         //mark 18 obtain self info
         //strcpy(buffer, "{\"mark\":18, \"account\":\"zhu\"}\r\n");
         //mark 19 backup data
-        //strcpy(buffer, "{\"mark\":19, \"account\":\"zhu\", contacts:[{\"name\":\"wang\", \"phone\":\"18829292929\"}, {\"name\":\"wei\", \"phone\":\"17728282828\"}]}\r\n");
+        //strcpy(buffer, "{\"mark\":19, \"account\":\"147258369\", contacts:[{\"name\":\"wang\", \"phone\":\"18829292929\"}, {\"name\":\"wei\", \"phone\":\"17728282828\"}]}\r\n");
         //mark 20 obtain backup data
-        //strcpy(buffer, "{\"mark\":20, \"account\":\"zhuchenguan\"}\r\n");
+        //strcpy(buffer, "{\"mark\":20, \"account\":\"147258369\"}\r\n");
         //mark 21 add friend info
         //strcpy(buffer, "{\"mark\":21, \"account\":\"zhu\", \"friendaccount\":\"zuchen\"}\r\n");
         //mark 22 check update friend is success
         //strcpy(buffer, "{\"mark\":22, \"account\":\"zhu\"}\r\n");
         send(sock_fd, buffer, 1024, 0);
-        char buf[10000];
-        recv(sock_fd, buf, 10000, 0);
+        char buf[100000];
+        recv(sock_fd, buf, 100000, 0);
         printf("%s\n", buf);
+    //}
     //}
 
 

@@ -35,7 +35,7 @@ public class AddFriendByAccount extends AccessDatabase{
                         if (userAndFriendRelation == 1) {
                             modifyUserAndFriendRelation();
                         } else {
-                            buildReturnValue(0, "success", "success", "添加好友成功");
+                            buildReturnValue(0, "success", "failure", "对方已是您的好友~~");
                         }
                     }
                     break;
