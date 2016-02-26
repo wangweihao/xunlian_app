@@ -52,6 +52,7 @@ public class ObtainAllContactsData extends AccessDatabase {
         return this;
     }
 
+
     private int getUserAccountId() throws SQLException {
         try{
             String sqlGetUserAccountId = "select uid from UserInfo where account = \"" +
@@ -67,8 +68,8 @@ public class ObtainAllContactsData extends AccessDatabase {
 
     private void getUserFriendAccountId() throws SQLException {
 
-        String sqlGetUserFriendAccountId = "select friendId from UserFriend where uid = " +
-                getUserAccountId() + ";";
+        String sqlGetUserFriendAccountId = "select friendId from UserFriend where uid = \"" +
+                getUserAccountId() + "\" and relation = 0;";
         preparedStatement = DBPoolConnection.prepareStatement(sqlGetUserFriendAccountId);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
